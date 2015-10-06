@@ -11,11 +11,23 @@ import com.parse.ParseObject;
 public class KitchenSupply extends ParseObject {
     String name;
 
+    public KitchenSupply(){
+        saveInBackground();
+    }
+    public KitchenSupply(String name){
+        this.name = name;
+        saveInBackground();
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getName() {
+        return this.name;
+    }
+
+    public String toString() {
         return this.name;
     }
 }

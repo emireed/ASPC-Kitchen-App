@@ -13,12 +13,8 @@ public class ASPCKitchenApplication extends android.app.Application {
 
         ParseObject.registerSubclass(KitchenSupply.class);
         Parse.initialize(this, "QaH3ndIMBf5bv9apU0AdGxfwNHeyRPrgRUtAQNc0", "2V9GhXq7l4tBb7rXAZAxpEm7hZOZv8qYPmISQESy");
-        KitchenSupply spatula = new KitchenSupply();
-        spatula.setName("SpatulaTest");
-        spatula.saveInBackground();
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
+        //KitchenSupply spatula = new KitchenSupply();
+        //spatula.setName("SpatulaTest");
+        //spatula.saveInBackground();
     }
 }
