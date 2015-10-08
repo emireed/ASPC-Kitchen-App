@@ -1,8 +1,8 @@
 package com.example.emi.aspckitchen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,33 +64,28 @@ public class MainActivity extends Activity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         // Also add that value to the list shown in the ListView
-        //mSupplyList.add(mainEditText.getText().toString());
         mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
         mArrayAdapter.notifyDataSetChanged();
-        //KitchenSupply testy = mSupplyList.get(1);
-        //testy.saveInBackground();
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        // Log the item's position and contents
-        // to the console in Debug
-        Log.d("omg android", position + ": " + mSupplyList.get(position));
+        KitchenSupply supply = mSupplyList.get(position);
+        String supplyName = supply.getName();
+
+        // create an Intent to take you over to a new DetailActivity
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+        //Intent detailIntentObject = new Intent()
+
+        // pack away the data about the name
+        // into your Intent before you head out
+        detailIntent.putExtra("supplyName", supplyName);
+
+        // start the next Activity using your prepared Intent
+        startActivity(detailIntent);
+
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }

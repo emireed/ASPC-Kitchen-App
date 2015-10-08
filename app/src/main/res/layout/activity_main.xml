@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:hint="@string/hint" />
+        android:hint="@string/supplyInput" />
 
     <!-- Set OnClickListener to trigger results when pressed -->
     <Button
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:text="@string/button" />
+        android:text="@string/addSupplyButton" />
 
     <!-- List whose dataset is defined in code with an adapter -->
     <ListView
