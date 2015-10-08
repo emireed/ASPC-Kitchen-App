@@ -9,34 +9,41 @@
         android:id="@+id/main_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/hello_world"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Welcome to the ASPC Kitchen Application!"/>
 
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
     <!-- Displays keyboard when touched -->
-    <EditText
-        android:id="@+id/main_edittext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:hint="@string/hint" />
-
-    <!-- Set OnClickListener to trigger results when pressed -->
-    <Button
-        android:id="@+id/main_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="@string/button" />
+        <EditText android:id="@+id/main_edittext"
+            android:textSize="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/enter_item"
+            android:layout_weight="0.7" />
+        <Button
+            android:id="@+id/main_button"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="#BBDEFB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search" />
+    </LinearLayout>
 
     <!-- List whose dataset is defined in code with an adapter -->
     <ListView
         android:id="@+id/main_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.53"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>
