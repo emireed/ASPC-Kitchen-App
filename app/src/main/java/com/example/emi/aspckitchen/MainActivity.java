@@ -22,7 +22,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
     EditText mainEditText;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList<KitchenSupply> mSupplyList = new ArrayList<KitchenSupply>();
+    KitchenSupplyList mSupplyList;
+    ArrayList<KitchenSupply> mSupplyArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +44,32 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Access the ListView
         mainListView = (ListView) findViewById(R.id.main_listview);
 
+        //TODO: Initialize the KitchenSupplyList from Parse
+        //TODO: Fix this line, it's breaking the app for some reason
+        //Note: It's because KitchenSupplyList was a Parse Object and it didn't like that...figure this out later
+        //TODO: KitchenSupply is no longer a parse object, just regular object with data to save into a parse object jsonarray. Thus we do not add supplies to parse, only update teh array itself
+        mSupplyList = new KitchenSupplyList();
+        mSupplyArrayList = new ArrayList<KitchenSupply>();
+        mSupplyArrayList.add(new KitchenSupply("spatula"));
+
+        mSupplyList.setArrayList(mSupplyArrayList);
+
+        // Get the ArrayList from the KitchenSupplyList
+       // mSupplyArrayList = mSupplyList.getArrayList();
+
+
         // Create an ArrayAdapter for the ListView
-        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyList);
+        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyArrayList);
 
         // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mArrayAdapter);
 
         // 5. Set this activity to react to list items being pressed
         mainListView.setOnItemClickListener(this);
+
+
+        // 6. Populate the KitchenSupply list from Parse
+
 
     }
 
@@ -64,7 +83,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         // Also add that value to the list shown in the ListView
-        mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
+        mSupplyArrayList.add(new KitchenSupply(mainEditText.getText().toString()));
         mArrayAdapter.notifyDataSetChanged();
 
     }
@@ -72,7 +91,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        KitchenSupply supply = mSupplyList.get(position);
+        KitchenSupply supply = mSupplyArrayList.get(position);
         String supplyName = supply.getName();
 
         // create an Intent to take you over to a new DetailActivity

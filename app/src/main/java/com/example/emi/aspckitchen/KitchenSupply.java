@@ -8,7 +8,7 @@ import com.parse.ParseObject;
  */
 
 @ParseClassName("KitchenSupply")
-public class KitchenSupply extends ParseObject{
+public class KitchenSupply extends ParseObject {
     String name;
 
     public KitchenSupply(){
