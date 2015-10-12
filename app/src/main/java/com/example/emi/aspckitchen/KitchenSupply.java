@@ -9,25 +9,27 @@ import com.parse.ParseObject;
 
 @ParseClassName("KitchenSupply")
 public class KitchenSupply extends ParseObject {
-    String name;
+    //String name;
 
     public KitchenSupply(){
         saveInBackground();
     }
+
     public KitchenSupply(String name){
-        this.name = name;
+        this.setName(name);
         saveInBackground();
     }
 
     public void setName(String name) {
-        this.name = name;
+        //this.name = name;
+        put("name", name);
     }
 
     public String getName() {
-        return this.name;
+        return getString("name");
     }
 
     public String toString() {
-        return this.name;
+        return getName();
     }
 }

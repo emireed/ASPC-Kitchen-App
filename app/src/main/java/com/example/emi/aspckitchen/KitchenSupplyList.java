@@ -6,11 +6,12 @@ import java.util.ArrayList;
  * Created by Keighley on 10/11/2015.
  */
 
-//@ParseClassName("KitchenSupplyList")
-public class KitchenSupplyList{
+public class KitchenSupplyList {
     ArrayList<KitchenSupply> mSupplyList;
 
+
     public KitchenSupplyList() {
+        mSupplyList = new ArrayList<KitchenSupply>();
     }
 
     public void setArrayList(ArrayList<KitchenSupply> newSupplyList) {
@@ -20,4 +21,5 @@ public class KitchenSupplyList{
     public ArrayList<KitchenSupply> getArrayList() {
         return mSupplyList;
     }
+
 }

@@ -12,7 +12,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemClickListener {
@@ -22,53 +27,68 @@ public class MainActivity extends Activity implements View.OnClickListener,
     EditText mainEditText;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    KitchenSupplyList mSupplyList;
-    ArrayList<KitchenSupply> mSupplyArrayList;
+    //KitchenSupplyList mSupplyList;mSupplyList =
+    ArrayList<KitchenSupply> mSupplyList = new ArrayList<KitchenSupply>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Access the TextView defined in layout XML
-        // and then set its text
+        // Access the TextView defined in layout XML and then set its text.
         mainTextView = (TextView) findViewById(R.id.main_textview);
         mainTextView.setText("Enter Kitchen Supplies");
 
-        // 2. Access the Button defined in layout XML
-        // and listen for it here
+        // Access the addButton defined in the XML file, and create its listener.
         addButton = (Button) findViewById(R.id.main_button);
         addButton.setOnClickListener(this);
-        // 3. Access the EditText defined in layout XML
+
+        // Access the EditText defined in layout XML
         mainEditText = (EditText) findViewById(R.id.main_edittext);
         // Access the ListView
         mainListView = (ListView) findViewById(R.id.main_listview);
 
-        //TODO: Initialize the KitchenSupplyList from Parse
-        //TODO: Fix this line, it's breaking the app for some reason
-        //Note: It's because KitchenSupplyList was a Parse Object and it didn't like that...figure this out later
-        //TODO: KitchenSupply is no longer a parse object, just regular object with data to save into a parse object jsonarray. Thus we do not add supplies to parse, only update teh array itself
-        mSupplyList = new KitchenSupplyList();
-        mSupplyArrayList = new ArrayList<KitchenSupply>();
-        mSupplyArrayList.add(new KitchenSupply("spatula"));
+        // Initialize the SupplyList from something random - this is just a placeholder. Should be overwritten below.
+        //mSupplyList = ParseObject.createWithoutData(KitchenSupplyList.class, supplyListObjectID);
 
-        mSupplyList.setArrayList(mSupplyArrayList);
+        // Initialize the KitchenSupplyList from Parse
+//        ParseQuery<KitchenSupplyList> query = ParseQuery.getQuery(KitchenSupplyList.class);
+//        //query.whereEqualTo("kitchenName", "Kitchen 1");
+//        query.findInBackground(new FindCallback<KitchenSupplyList>() {
+//            public void done(List<KitchenSupplyList> results, ParseException e) {
+//                if (e==null){
+//                    Log.d("supply", "Retrieved a supply list");
+//                    for (KitchenSupplyList list : results){
+//                        mSupplyList = new KitchenSupplyList(list.getId());
+//                        Log.d("supply", "supplyList kitchen is:" + list.getKitchen());
+//                    }
+//                    // mSupplyList is saved as our object
+//                }
+//                else {
+//                    Log.d("score", "Error: " + e.getMessage());
+//                }
+//            }
+//        });
 
-        // Get the ArrayList from the KitchenSupplyList
-       // mSupplyArrayList = mSupplyList.getArrayList();
+
+        //mSupplyList = new KitchenSupplyList();
+
+
+
+        // Update the data so we have the current supplies.
+
+        updateSupplyList();
 
 
         // Create an ArrayAdapter for the ListView
-        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyArrayList);
+        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyList);
 
         // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mArrayAdapter);
 
         // 5. Set this activity to react to list items being pressed
         mainListView.setOnItemClickListener(this);
-
-
-        // 6. Populate the KitchenSupply list from Parse
 
 
     }
@@ -83,15 +103,16 @@ public class MainActivity extends Activity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         // Also add that value to the list shown in the ListView
-        mSupplyArrayList.add(new KitchenSupply(mainEditText.getText().toString()));
+        mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
         mArrayAdapter.notifyDataSetChanged();
+        mainEditText.setText("");
 
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        KitchenSupply supply = mSupplyArrayList.get(position);
+        KitchenSupply supply = mSupplyList.get(position);
         String supplyName = supply.getName();
 
         // create an Intent to take you over to a new DetailActivity
@@ -105,6 +126,21 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // start the next Activity using your prepared Intent
         startActivity(detailIntent);
 
+    }
+
+    public void updateSupplyList() {
+        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
+        query.findInBackground(new FindCallback<KitchenSupply>() {
+
+            @Override
+            public void done(List<KitchenSupply> supplies, ParseException error) {
+                if(supplies != null){
+                    mSupplyList.clear();
+                    mSupplyList.addAll(supplies);
+                    mArrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
 }
