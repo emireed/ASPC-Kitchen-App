@@ -36,6 +36,9 @@ public class MainActivity extends Activity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO: delete this
+        //this.getIntent().putExtra("supplyDeleted", false);
+
         // Access the TextView defined in layout XML and then set its text.
         mainTextView = (TextView) findViewById(R.id.main_textview);
         mainTextView.setText("Enter Kitchen Supplies");
@@ -49,37 +52,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Access the ListView
         mainListView = (ListView) findViewById(R.id.main_listview);
 
-        // Initialize the SupplyList from something random - this is just a placeholder. Should be overwritten below.
-        //mSupplyList = ParseObject.createWithoutData(KitchenSupplyList.class, supplyListObjectID);
-
-        // Initialize the KitchenSupplyList from Parse
-//        ParseQuery<KitchenSupplyList> query = ParseQuery.getQuery(KitchenSupplyList.class);
-//        //query.whereEqualTo("kitchenName", "Kitchen 1");
-//        query.findInBackground(new FindCallback<KitchenSupplyList>() {
-//            public void done(List<KitchenSupplyList> results, ParseException e) {
-//                if (e==null){
-//                    Log.d("supply", "Retrieved a supply list");
-//                    for (KitchenSupplyList list : results){
-//                        mSupplyList = new KitchenSupplyList(list.getId());
-//                        Log.d("supply", "supplyList kitchen is:" + list.getKitchen());
-//                    }
-//                    // mSupplyList is saved as our object
-//                }
-//                else {
-//                    Log.d("score", "Error: " + e.getMessage());
-//                }
-//            }
-//        });
-
-
-        //mSupplyList = new KitchenSupplyList();
-
-
-
         // Update the data so we have the current supplies.
-
         updateSupplyList();
-
 
         // Create an ArrayAdapter for the ListView
         mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyList);
@@ -89,7 +63,21 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
         // 5. Set this activity to react to list items being pressed
         mainListView.setOnItemClickListener(this);
+    }
 
+    // TODO: Is this necessary?
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateSupplyList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateSupplyList();
+        mArrayAdapter.notifyDataSetChanged();
 
     }
 
@@ -114,14 +102,14 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
         KitchenSupply supply = mSupplyList.get(position);
         String supplyName = supply.getName();
+        String supplyID = supply.getObjectId();
 
         // create an Intent to take you over to a new DetailActivity
         Intent detailIntent = new Intent(this, DetailActivity.class);
-        //Intent detailIntentObject = new Intent()
 
-        // pack away the data about the name
-        // into your Intent before you head out
+        // Save the relevant details about our Supply so they can be used in the new activity.
         detailIntent.putExtra("supplyName", supplyName);
+        detailIntent.putExtra("supplyID", supplyID);
 
         // start the next Activity using your prepared Intent
         startActivity(detailIntent);

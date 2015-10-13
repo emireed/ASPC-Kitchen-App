@@ -9,7 +9,11 @@ import com.parse.ParseObject;
 
 @ParseClassName("KitchenSupply")
 public class KitchenSupply extends ParseObject {
-    //String name;
+    // The data members of this class are stored on Parse:
+    // String name;
+    // String kitchen;
+    // String details;
+
 
     public KitchenSupply(){
         saveInBackground();
@@ -20,13 +24,41 @@ public class KitchenSupply extends ParseObject {
         saveInBackground();
     }
 
+    public KitchenSupply(String name, String kitchen) {
+        this.setName(name);
+        this.setKitchen(kitchen);
+        saveInBackground();
+    }
+
+    public KitchenSupply(String name, String kitchen, String details) {
+        this.setName(name);
+        this.setKitchen(kitchen);
+        this.setDetails(details);
+        saveInBackground();
+    }
+
     public void setName(String name) {
-        //this.name = name;
         put("name", name);
     }
 
     public String getName() {
         return getString("name");
+    }
+
+    public void setKitchen(String kitchen) {
+        put("kitchen", kitchen);
+    }
+
+    public String getKitchen() {
+        return getString("kitchen");
+    }
+
+    public void setDetails(String details) {
+        put("details", details);
+    }
+
+    public void getDetails(String details) {
+        put("details", details);
     }
 
     public String toString() {
