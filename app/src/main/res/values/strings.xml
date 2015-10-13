@@ -3,4 +3,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="addSupplyButton">Add Supply</string>
+    <string name="deleteButton">Delete</string>
+
+    <string name="supplyInput">Enter Supply</string>
+
+    <string name="activity_details">Supply Details</string>
 </resources>
