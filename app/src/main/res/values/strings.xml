@@ -9,5 +9,9 @@
 
     <string name="supplyInput">Enter Supply</string>
 
+    <string name="search"><b>Add</b></string>
+    <string name="enter_item">Add Item</string>
+
+
     <string name="activity_details">Supply Details</string>
 </resources>
