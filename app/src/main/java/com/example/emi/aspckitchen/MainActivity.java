@@ -27,17 +27,16 @@ public class MainActivity extends Activity implements View.OnClickListener,
     EditText mainEditText;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    //KitchenSupplyList mSupplyList;mSupplyList =
     ArrayList<KitchenSupply> mSupplyList = new ArrayList<KitchenSupply>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Choose the correct XML file to use.
         setContentView(R.layout.activity_main);
 
-        //TODO: delete this
-        //this.getIntent().putExtra("supplyDeleted", false);
 
         // Access the TextView defined in layout XML and then set its text.
         mainTextView = (TextView) findViewById(R.id.main_textview);
@@ -47,37 +46,29 @@ public class MainActivity extends Activity implements View.OnClickListener,
         addButton = (Button) findViewById(R.id.main_button);
         addButton.setOnClickListener(this);
 
-        // Access the EditText defined in layout XML
+        // Access the EditText and ListView
         mainEditText = (EditText) findViewById(R.id.main_edittext);
-        // Access the ListView
         mainListView = (ListView) findViewById(R.id.main_listview);
 
-        // Update the data so we have the current supplies.
+        // Populate the supply list with the list of supplies currently on Parse.
         updateSupplyList();
 
-        // Create an ArrayAdapter for the ListView
+        // Create an ArrayAdapter for the ListView so we can display the items.
         mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyList);
 
         // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mArrayAdapter);
 
-        // 5. Set this activity to react to list items being pressed
+        // Set this activity to react to list items being pressed
         mainListView.setOnItemClickListener(this);
-    }
-
-    // TODO: Is this necessary?
-    @Override
-    protected void onStart() {
-        super.onStart();
-        updateSupplyList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        // Every time this activity is resumed, update the supply list again.
         updateSupplyList();
-        mArrayAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -89,16 +80,18 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        // Also add that value to the list shown in the ListView
+        // Create a new KitchenSupply based on the item
         mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
         mArrayAdapter.notifyDataSetChanged();
-        mainEditText.setText("");
 
+        // Reset the EditText to be blank.
+        mainEditText.setText("");
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        // Get the supply
         KitchenSupply supply = mSupplyList.get(position);
         String supplyName = supply.getName();
         String supplyID = supply.getObjectId();
@@ -110,7 +103,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         detailIntent.putExtra("supplyName", supplyName);
         detailIntent.putExtra("supplyID", supplyID);
 
-        // start the next Activity using your prepared Intent
+        // Start the next Activity using your prepared Intent
         startActivity(detailIntent);
 
     }

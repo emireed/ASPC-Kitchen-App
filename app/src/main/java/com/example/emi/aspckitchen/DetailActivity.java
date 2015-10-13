@@ -22,31 +22,25 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     Button deleteButton;
     String supplyName;
     String supplyID;
-    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Tell the activity which XML layout is right
+        // Tell the activity which XML layout to use
         setContentView(R.layout.activity_detail);
 
-
+        // Get the details about the supply, so we can display them.
         supplyName = this.getIntent().getExtras().getString("supplyName");
         supplyID = this.getIntent().getExtras().getString("supplyID");
-        position = this.getIntent().getExtras().getInt("supplyPos");
 
+        // Create the delete button.
         deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(this);
 
+        // Set the textview to display the supply name.
         detailTextView = (TextView) findViewById(R.id.detail_textview);
         detailTextView.setText(supplyName);
-
-        //TODO: delete this
-        // Create an Intent to tell the MainActivity if we've deleted an item.
-//        mainIntent = new Intent(this, MainActivity.class);
-//        mainIntent.putExtra("supplyDeleted", false);
-//        mainIntent.putExtra("supplyPos", position);
 
     }
 
@@ -60,7 +54,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 if (e == null) {
                     // Delete the object.
                     supply.deleteInBackground();
-                    // TODO: Delete the object from the local supplyList, as well, so it shows up in the immediate app.
                 } else {
                     // Something went wrong...
                     Log.d("score", "Error: " + e.getMessage());
