@@ -18,10 +18,9 @@ import com.parse.ParseQuery;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
 
-    TextView detailTextView;
+    TextView detailTextView, supplyNameTextView, supplyKitchenTextView, supplyNotesTextView;
     Button deleteButton;
-    String supplyName;
-    String supplyID;
+    String supplyName, supplyID, supplyKitchen, supplyNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,8 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         // Get the details about the supply, so we can display them.
         supplyName = this.getIntent().getExtras().getString("supplyName");
         supplyID = this.getIntent().getExtras().getString("supplyID");
+        supplyKitchen = this.getIntent().getExtras().getString("supplyKitchen");
+        supplyNotes = this.getIntent().getExtras().getString("supplyNotes");
 
         // Create the delete button.
         deleteButton = (Button) findViewById(R.id.delete_button);
@@ -40,7 +41,16 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
         // Set the textview to display the supply name.
         detailTextView = (TextView) findViewById(R.id.detail_textview);
-        detailTextView.setText(supplyName);
+
+        supplyNameTextView = (TextView) findViewById(R.id.supply_name);
+        supplyNameTextView.setText(supplyName);
+
+        supplyKitchenTextView = (TextView) findViewById(R.id.supply_kitchen);
+        supplyKitchenTextView.setText(supplyKitchen);
+
+        supplyNotesTextView = (TextView) findViewById(R.id.supply_notes);
+        supplyNotesTextView.setText(supplyNotes);
+
 
     }
 
