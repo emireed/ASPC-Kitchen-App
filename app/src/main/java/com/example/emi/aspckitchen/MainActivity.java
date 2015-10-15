@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemClickListener {
 
     TextView mainTextView;
-    Button addButton;
+    Button addButton, refreshButton;
     EditText mainEditText;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
@@ -45,6 +45,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Access the addButton defined in the XML file, and create its listener.
         addButton = (Button) findViewById(R.id.main_button);
         addButton.setOnClickListener(this);
+
+        refreshButton = (Button) findViewById(R.id.refresh_button);
 
         // Access the EditText and ListView
         //mainEditText = (EditText) findViewById(R.id.main_edittext);
@@ -109,6 +111,10 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Start the next Activity using your prepared Intent
         startActivity(detailIntent);
 
+    }
+
+    public void refreshList(View v) {
+        updateSupplyList();
     }
 
     public void updateSupplyList() {

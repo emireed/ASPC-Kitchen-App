@@ -30,12 +30,13 @@
             android:layout_weight="0.7" />-->
         <Button
             android:id="@+id/main_button"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="#BBDEFB"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#2196F3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search" />
+            android:text="@string/search"
+            android:textColor="#ffffff"/>
     </LinearLayout>
 
     <!-- List whose dataset is defined in code with an adapter -->
@@ -45,5 +46,12 @@
         android:layout_height="0dp"
         android:layout_weight="0.53"
         android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="Refresh"
+        android:onClick="refreshList"/>
 
 </LinearLayout>
