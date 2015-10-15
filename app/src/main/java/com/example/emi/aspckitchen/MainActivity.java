@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         addButton.setOnClickListener(this);
 
         // Access the EditText and ListView
-        mainEditText = (EditText) findViewById(R.id.main_edittext);
+        //mainEditText = (EditText) findViewById(R.id.main_edittext);
         mainListView = (ListView) findViewById(R.id.main_listview);
 
         // Populate the supply list with the list of supplies currently on Parse.
@@ -81,11 +81,14 @@ public class MainActivity extends Activity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         // Create a new KitchenSupply based on the item
-        mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
-        mArrayAdapter.notifyDataSetChanged();
+        //mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
+        //mArrayAdapter.notifyDataSetChanged();
 
         // Reset the EditText to be blank.
-        mainEditText.setText("");
+        //mainEditText.setText("");
+
+        Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
+        startActivity(addSupplyIntent);
     }
 
     @Override

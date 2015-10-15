@@ -12,6 +12,12 @@
     <string name="search"><b>Add</b></string>
     <string name="enter_item">Add Item</string>
 
+    <string name="createButton">Create</string>
+    <string name="cancelButton">Cancel</string>
+
 
     <string name="activity_details">Supply Details</string>
+
+    <string name="addSupplyIntro">Create a New Supply</string>
+
 </resources>
