@@ -100,6 +100,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         KitchenSupply supply = mSupplyList.get(position);
         String supplyName = supply.getName();
         String supplyID = supply.getObjectId();
+        String supplyKitchen = supply.getKitchen();
+        String supplyNotes = supply.getDetails();
 
         // create an Intent to take you over to a new DetailActivity
         Intent detailIntent = new Intent(this, DetailActivity.class);
@@ -107,6 +109,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Save the relevant details about our Supply so they can be used in the new activity.
         detailIntent.putExtra("supplyName", supplyName);
         detailIntent.putExtra("supplyID", supplyID);
+        detailIntent.putExtra("supplyKitchen", supplyKitchen);
+        detailIntent.putExtra("supplyNotes", supplyNotes);
 
         // Start the next Activity using your prepared Intent
         startActivity(detailIntent);
