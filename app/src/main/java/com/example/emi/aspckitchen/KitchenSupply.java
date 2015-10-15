@@ -57,9 +57,7 @@ public class KitchenSupply extends ParseObject {
         put("details", details);
     }
 
-    public void getDetails(String details) {
-        put("details", details);
-    }
+    public String getDetails() { return getString("details"); }
 
     public String toString() {
         return getName();

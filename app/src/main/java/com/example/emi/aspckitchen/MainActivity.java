@@ -1,10 +1,13 @@
 package com.example.emi.aspckitchen;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,8 +42,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
 
         // Access the TextView defined in layout XML and then set its text.
-        mainTextView = (TextView) findViewById(R.id.main_textview);
-        mainTextView.setText("Enter Kitchen Supplies");
+        //mainTextView = (TextView) findViewById(R.id.main_textview);
+        //mainTextView.setText("Enter Kitchen Supplies");
 
         // Access the addButton defined in the XML file, and create its listener.
         addButton = (Button) findViewById(R.id.main_button);
@@ -56,7 +59,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         updateSupplyList();
 
         // Create an ArrayAdapter for the ListView so we can display the items.
-        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mSupplyList);
+        mArrayAdapter = new SupplyListAdapter(this, mSupplyList);
 
         // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mArrayAdapter);
@@ -100,6 +103,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         KitchenSupply supply = mSupplyList.get(position);
         String supplyName = supply.getName();
         String supplyID = supply.getObjectId();
+        String supplyKitchen = supply.getKitchen();
+        String supplyNotes = supply.getDetails();
 
         // create an Intent to take you over to a new DetailActivity
         Intent detailIntent = new Intent(this, DetailActivity.class);
@@ -107,6 +112,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Save the relevant details about our Supply so they can be used in the new activity.
         detailIntent.putExtra("supplyName", supplyName);
         detailIntent.putExtra("supplyID", supplyID);
+        detailIntent.putExtra("supplyKitchen", supplyKitchen);
+        detailIntent.putExtra("supplyNotes", supplyNotes);
 
         // Start the next Activity using your prepared Intent
         startActivity(detailIntent);
@@ -130,6 +137,85 @@ public class MainActivity extends Activity implements View.OnClickListener,
                 }
             }
         });
+    }
+
+
+
+    public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
+
+        Context mContext;
+        ArrayList<KitchenSupply> data = null;
+
+
+        public SupplyListAdapter(Context ctx, ArrayList<KitchenSupply> data) {
+            super(ctx, android.R.layout.simple_list_item_1, data);
+            this.mContext = ctx;
+            this.data = data;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.row_supplylist, parent, false);
+//
+            KitchenSupply supply = data.get(position);
+
+            TextView supplyNameTextView = (TextView) convertView.findViewById(R.id.supply_name);
+            String nameString = supply.getName();
+            supplyNameTextView.setText(nameString);
+
+            TextView supplyKitchenTextView = (TextView) convertView.findViewById(R.id.supply_kitchen);
+            String kitchenString = supply.getKitchen();
+            supplyKitchenTextView.setText(kitchenString);
+
+            SupplyHolder holder = new SupplyHolder();
+            holder.supply = data.get(position);
+            holder.name = supplyNameTextView;
+            holder.kitchen = supplyKitchenTextView;
+
+            setupItem(holder);
+            convertView.setTag(holder);
+
+
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return data.size();
+        }
+
+        @Override
+        public KitchenSupply getItem(int i) {
+            return data.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        //gets the data currently in the list
+        public ArrayList<KitchenSupply> getData(){
+            return data;
+        }
+
+        private void setupItem(SupplyHolder holder) {
+            holder.name.setText(holder.supply.getName());
+            holder.kitchen.setText(holder.supply.getKitchen());
+        }
+
+        public class SupplyHolder {
+            KitchenSupply supply;
+            TextView name;
+            TextView kitchen;
+        }
+
+
+
+
+
+
     }
 
 }
