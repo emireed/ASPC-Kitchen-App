@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,12 +24,10 @@ import java.util.List;
 public class MainActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemClickListener {
 
-    TextView mainTextView;
-    Button addButton, refreshButton;
-    EditText mainEditText;
+    Button addKitchenButton, addSupplyButton, refreshButton;
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList<KitchenSupply> mSupplyList = new ArrayList<KitchenSupply>();
+    ArrayList<Kitchen> mKitchenList = new ArrayList<Kitchen>();
 
 
     @Override
@@ -40,26 +37,19 @@ public class MainActivity extends Activity implements View.OnClickListener,
         // Choose the correct XML file to use.
         setContentView(R.layout.activity_main);
 
-
-        // Access the TextView defined in layout XML and then set its text.
-        //mainTextView = (TextView) findViewById(R.id.main_textview);
-        //mainTextView.setText("Enter Kitchen Supplies");
-
-        // Access the addButton defined in the XML file, and create its listener.
-        addButton = (Button) findViewById(R.id.main_button);
-        addButton.setOnClickListener(this);
-
+        // Define the buttons defined in the xml file.
+        addKitchenButton = (Button) findViewById(R.id.add_kitchen_button);
+        addSupplyButton = (Button) findViewById(R.id.main_button);
         refreshButton = (Button) findViewById(R.id.refresh_button);
 
-        // Access the EditText and ListView
-        //mainEditText = (EditText) findViewById(R.id.main_edittext);
+        // Access the ListView
         mainListView = (ListView) findViewById(R.id.main_listview);
 
         // Populate the supply list with the list of supplies currently on Parse.
-        updateSupplyList();
+        updateKitchenList();
 
         // Create an ArrayAdapter for the ListView so we can display the items.
-        mArrayAdapter = new SupplyListAdapter(this, mSupplyList);
+        mArrayAdapter = new KitchenListAdapter(this, mKitchenList);
 
         // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mArrayAdapter);
@@ -73,7 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         super.onResume();
 
         // Every time this activity is resumed, update the supply list again.
-        updateSupplyList();
+        updateKitchenList();
     }
 
     @Override
@@ -85,54 +75,50 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        // Create a new KitchenSupply based on the item
-        //mSupplyList.add(new KitchenSupply(mainEditText.getText().toString()));
-        //mArrayAdapter.notifyDataSetChanged();
-
-        // Reset the EditText to be blank.
-        //mainEditText.setText("");
-
-        Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
-        startActivity(addSupplyIntent);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        // Get the supply
-        KitchenSupply supply = mSupplyList.get(position);
-        String supplyName = supply.getName();
-        String supplyID = supply.getObjectId();
-        String supplyKitchen = supply.getKitchen();
-        String supplyNotes = supply.getDetails();
+        // Get the kitchen
+        Kitchen kitchen = mKitchenList.get(position);
+        String kitchenName = kitchen.getName();
 
-        // create an Intent to take you over to a new DetailActivity
-        Intent detailIntent = new Intent(this, DetailActivity.class);
+        // Create an Intent to go to the Kitchen activity
+        Intent kitchenIntent = new Intent(this, KitchenActivity.class);
 
-        // Save the relevant details about our Supply so they can be used in the new activity.
-        detailIntent.putExtra("supplyName", supplyName);
-        detailIntent.putExtra("supplyID", supplyID);
-        detailIntent.putExtra("supplyKitchen", supplyKitchen);
-        detailIntent.putExtra("supplyNotes", supplyNotes);
+        // Save the relevant details about our Kitchen so they can be used in the new activity.
+        kitchenIntent.putExtra("kitchenName", kitchenName);
 
         // Start the next Activity using your prepared Intent
-        startActivity(detailIntent);
+        startActivity(kitchenIntent);
 
+    }
+
+    public void addKitchen(View v) {
+        Intent addKitchenIntent = new Intent(this, AddKitchenActivity.class);
+        startActivity(addKitchenIntent);
+    }
+
+    public void addKitchenSupply(View v) {
+        // Create the intent to add a new supply, and go to that activity.
+        Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
+        startActivity(addSupplyIntent);
     }
 
     public void refreshList(View v) {
-        updateSupplyList();
+        updateKitchenList();
     }
 
-    public void updateSupplyList() {
-        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
-        query.findInBackground(new FindCallback<KitchenSupply>() {
+    public void updateKitchenList() {
+        ParseQuery<Kitchen> query = ParseQuery.getQuery(Kitchen.class);
+        query.findInBackground(new FindCallback<Kitchen>() {
 
             @Override
-            public void done(List<KitchenSupply> supplies, ParseException error) {
-                if(supplies != null){
-                    mSupplyList.clear();
-                    mSupplyList.addAll(supplies);
+            public void done(List<Kitchen> kitchens, ParseException error) {
+                if(kitchens != null){
+                    mKitchenList.clear();
+                    mKitchenList.addAll(kitchens);
                     mArrayAdapter.notifyDataSetChanged();
                 }
             }
@@ -141,13 +127,13 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
 
 
-    public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
+    public class KitchenListAdapter extends ArrayAdapter<Kitchen> {
 
         Context mContext;
-        ArrayList<KitchenSupply> data = null;
+        ArrayList<Kitchen> data = null;
 
 
-        public SupplyListAdapter(Context ctx, ArrayList<KitchenSupply> data) {
+        public KitchenListAdapter(Context ctx, ArrayList<Kitchen> data) {
             super(ctx, android.R.layout.simple_list_item_1, data);
             this.mContext = ctx;
             this.data = data;
@@ -156,24 +142,19 @@ public class MainActivity extends Activity implements View.OnClickListener,
         public View getView(int position, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.row_supplylist, parent, false);
+            convertView = inflater.inflate(R.layout.kitchen_list_item, parent, false);
 
-            KitchenSupply supply = data.get(position);
+            Kitchen kitchen = data.get(position);
 
             TextView supplyNameTextView = (TextView) convertView.findViewById(R.id.supply_name);
-            String nameString = supply.getName();
+            String nameString = kitchen.getName();
             supplyNameTextView.setText(nameString);
-
-            TextView supplyKitchenTextView = (TextView) convertView.findViewById(R.id.supply_kitchen);
-            String kitchenString = supply.getKitchen();
-            supplyKitchenTextView.setText(kitchenString);
 
 
             //TODO: Check if necessary
-            SupplyHolder holder = new SupplyHolder();
-            holder.supply = data.get(position);
+            KitchenHolder holder = new KitchenHolder();
+            holder.kitchen = data.get(position);
             holder.name = supplyNameTextView;
-            holder.kitchen = supplyKitchenTextView;
 
             setupItem(holder);
             convertView.setTag(holder);
@@ -188,7 +169,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         }
 
         @Override
-        public KitchenSupply getItem(int i) {
+        public Kitchen getItem(int i) {
             return data.get(i);
         }
 
@@ -198,19 +179,17 @@ public class MainActivity extends Activity implements View.OnClickListener,
         }
 
         //gets the data currently in the list
-        public ArrayList<KitchenSupply> getData(){
+        public ArrayList<Kitchen> getData(){
             return data;
         }
 
-        private void setupItem(SupplyHolder holder) {
-            holder.name.setText(holder.supply.getName());
-            holder.kitchen.setText(holder.supply.getKitchen());
+        private void setupItem(KitchenHolder holder) {
+            holder.name.setText(holder.kitchen.getName());
         }
 
-        public class SupplyHolder {
-            KitchenSupply supply;
+        public class KitchenHolder {
+            Kitchen kitchen;
             TextView name;
-            TextView kitchen;
         }
 
     }
