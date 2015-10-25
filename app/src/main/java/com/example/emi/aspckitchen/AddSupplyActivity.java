@@ -1,18 +1,11 @@
 package com.example.emi.aspckitchen;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 /**
  * Created by emi on 10/14/15.
@@ -51,7 +44,6 @@ public class AddSupplyActivity extends Activity {
     public void cancelSupply(View v) {
 
         // We don't want to save any data, just return to main screen
-
         finish();
     }
 

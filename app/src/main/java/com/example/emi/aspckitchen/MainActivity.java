@@ -157,7 +157,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.row_supplylist, parent, false);
-//
+
             KitchenSupply supply = data.get(position);
 
             TextView supplyNameTextView = (TextView) convertView.findViewById(R.id.supply_name);
@@ -168,6 +168,8 @@ public class MainActivity extends Activity implements View.OnClickListener,
             String kitchenString = supply.getKitchen();
             supplyKitchenTextView.setText(kitchenString);
 
+
+            //TODO: Check if necessary
             SupplyHolder holder = new SupplyHolder();
             holder.supply = data.get(position);
             holder.name = supplyNameTextView;
@@ -210,11 +212,6 @@ public class MainActivity extends Activity implements View.OnClickListener,
             TextView name;
             TextView kitchen;
         }
-
-
-
-
-
 
     }
 
