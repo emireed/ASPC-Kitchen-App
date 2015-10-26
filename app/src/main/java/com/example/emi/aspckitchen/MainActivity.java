@@ -96,6 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
     }
 
     public void addKitchen(View v) {
+        // Create the intent to add a new kitchen, and go to that activity.
         Intent addKitchenIntent = new Intent(this, AddKitchenActivity.class);
         startActivity(addKitchenIntent);
     }

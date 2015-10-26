@@ -1,6 +1,7 @@
 package com.example.emi.aspckitchen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +52,25 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         supplyNotesTextView = (TextView) findViewById(R.id.supply_notes);
         supplyNotesTextView.setText(supplyNotes);
 
+        // Create an intent so that we can return to the previous page when we're done.
+        Intent kitchenIntent = new Intent(this, KitchenActivity.class);
+        // Save the relevant details about our Kitchen so they can be used in the new activity.
+        kitchenIntent.putExtra("kitchenName", supplyKitchen);
+
+
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Create an intent so that we can return to the previous page when we're done.
+        Intent kitchenIntent = new Intent(this, KitchenActivity.class);
+        // Save the relevant details about our Kitchen so they can be used in the new activity.
+        kitchenIntent.putExtra("kitchenName", supplyKitchen);
+        // Start the next Activity using your prepared Intent
+        startActivity(kitchenIntent);
+    }
 
     @Override
     public void onClick(View v) {

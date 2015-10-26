@@ -35,6 +35,15 @@
         <activity
             android:name=".DetailActivity"
             android:label="@string/activity_details"
+            android:parentActivityName=".KitchenActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".KitchenActivity"/>
+        </activity>
+
+        <activity
+            android:name=".AddSupplyActivity"
+            android:label="Add Supply"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -42,8 +51,8 @@
         </activity>
 
         <activity
-            android:name=".AddSupplyActivity"
-            android:label="Add Supply"
+            android:name=".AddKitchenActivity"
+            android:label="Add Kitchen"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

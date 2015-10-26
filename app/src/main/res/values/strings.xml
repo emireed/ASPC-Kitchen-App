@@ -15,9 +15,10 @@
     <string name="createButton">Create</string>
     <string name="cancelButton">Cancel</string>
 
-
+    <string name="addKitchenName">Kitchen Name</string>
     <string name="activity_details">Supply Details</string>
 
     <string name="addSupplyIntro">Create a New Supply</string>
+    <string name="addKitchenIntro">Create a New Kitchen</string>
 
 </resources>
