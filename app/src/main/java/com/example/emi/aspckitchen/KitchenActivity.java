@@ -38,10 +38,14 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        kitchenName = this.getIntent().getExtras().getString("kitchenName");
+
+        // Display the title of the page as the kitchen name.
+        getActionBar().setTitle(kitchenName);
+
         // Choose the correct XML file to use.
         setContentView(R.layout.activity_kitchen);
 
-        kitchenName = this.getIntent().getExtras().getString("kitchenName");
 
         // Define the buttons defined in the xml file.
         addSupplyButton = (Button) findViewById(R.id.main_button);

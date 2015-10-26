@@ -36,6 +36,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         supplyKitchen = this.getIntent().getExtras().getString("supplyKitchen");
         supplyNotes = this.getIntent().getExtras().getString("supplyNotes");
 
+        // Display the title of the page as the supply name.
+        getActionBar().setTitle("Supply Details: " + supplyName);
+
         // Create the delete button.
         deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(this);
