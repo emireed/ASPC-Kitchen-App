@@ -121,19 +121,49 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     }
 
     public void updateSupplyList() {
-        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
-        query.whereEqualTo("kitchen", kitchenName);
-        query.findInBackground(new FindCallback<KitchenSupply>() {
+
+        mSupplyList.clear();
+
+        // Get the equipment
+        ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
+        queryE.whereEqualTo("kitchen", kitchenName);
+        queryE.findInBackground(new FindCallback<Equipment>() {
 
             @Override
-            public void done(List<KitchenSupply> supplies, ParseException error) {
+            public void done(List<Equipment> supplies, ParseException error) {
                 if(supplies != null){
-                    mSupplyList.clear();
                     mSupplyList.addAll(supplies);
                     mArrayAdapter.notifyDataSetChanged();
                 }
             }
         });
+
+        // Get the ingredients
+        ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
+        queryI.whereEqualTo("kitchen", kitchenName);
+        queryI.findInBackground(new FindCallback<Ingredient>() {
+
+            @Override
+            public void done(List<Ingredient> supplies, ParseException error) {
+                if(supplies != null){
+                    mSupplyList.addAll(supplies);
+                    mArrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+//        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
+//        query.whereEqualTo("kitchen", kitchenName);
+//        query.findInBackground(new FindCallback<KitchenSupply>() {
+//
+//            @Override
+//            public void done(List<KitchenSupply> supplies, ParseException error) {
+//                if(supplies != null){
+//                    mSupplyList.clear();
+//                    mSupplyList.addAll(supplies);
+//                    mArrayAdapter.notifyDataSetChanged();
+//                }
+//            }
+//        });
     }
 
 
@@ -166,14 +196,14 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             supplyKitchenTextView.setText(kitchenString);
 
 
-            //TODO: Check if necessary
-            SupplyHolder holder = new SupplyHolder();
-            holder.supply = data.get(position);
-            holder.name = supplyNameTextView;
-            holder.kitchen = supplyKitchenTextView;
-
-            setupItem(holder);
-            convertView.setTag(holder);
+//            //TODO: Check if necessary
+//            SupplyHolder holder = new SupplyHolder();
+//            holder.supply = data.get(position);
+//            holder.name = supplyNameTextView;
+//            holder.kitchen = supplyKitchenTextView;
+//
+//            setupItem(holder);
+//            convertView.setTag(holder);
 
 
             return convertView;
@@ -199,16 +229,16 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             return data;
         }
 
-        private void setupItem(SupplyHolder holder) {
-            holder.name.setText(holder.supply.getName());
-            holder.kitchen.setText(holder.supply.getKitchen());
-        }
-
-        public class SupplyHolder {
-            KitchenSupply supply;
-            TextView name;
-            TextView kitchen;
-        }
+//        private void setupItem(SupplyHolder holder) {
+//            holder.name.setText(holder.supply.getName());
+//            holder.kitchen.setText(holder.supply.getKitchen());
+//        }
+//
+//        public class SupplyHolder {
+//            KitchenSupply supply;
+//            TextView name;
+//            TextView kitchen;
+//        }
 
     }
 
