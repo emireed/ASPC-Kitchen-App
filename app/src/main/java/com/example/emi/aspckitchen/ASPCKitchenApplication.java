@@ -11,8 +11,10 @@ public class ASPCKitchenApplication extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        ParseObject.registerSubclass(KitchenSupply.class);
         ParseObject.registerSubclass(Kitchen.class);
+        ParseObject.registerSubclass(KitchenSupply.class);
+        ParseObject.registerSubclass(Equipment.class);
+        ParseObject.registerSubclass(Ingredient.class);
         Parse.initialize(this, "QaH3ndIMBf5bv9apU0AdGxfwNHeyRPrgRUtAQNc0", "2V9GhXq7l4tBb7rXAZAxpEm7hZOZv8qYPmISQESy");
 
     }

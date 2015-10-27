@@ -21,4 +21,7 @@
     <string name="addSupplyIntro">Create a New Supply</string>
     <string name="addKitchenIntro">Create a New Kitchen</string>
 
+    <string name="selectEquipment">Equipment</string>
+    <string name="selectIngredient">Ingredient</string>
+
 </resources>

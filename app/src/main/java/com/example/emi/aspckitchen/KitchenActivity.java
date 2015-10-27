@@ -94,7 +94,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         String supplyName = supply.getName();
         String supplyID = supply.getObjectId();
         String supplyKitchen = supply.getKitchen();
-        String supplyNotes = supply.getDetails();
+        String supplyNotes = supply.getNotes();
 
         // Create an Intent to take you over to a new DetailActivity
         Intent detailIntent = new Intent(this, DetailActivity.class);
