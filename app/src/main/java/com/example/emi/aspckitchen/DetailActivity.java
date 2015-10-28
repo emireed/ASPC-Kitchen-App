@@ -21,7 +21,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     TextView detailTextView, supplyNameTextView, supplyKitchenTextView, supplyNotesTextView;
     Button deleteButton;
-    String supplyName, supplyID, supplyKitchen, supplyNotes;
+    String supplyName, supplyID, kitchenName, supplyNotes, supplyType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,10 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         // Get the details about the supply, so we can display them.
         supplyName = this.getIntent().getExtras().getString("supplyName");
         supplyID = this.getIntent().getExtras().getString("supplyID");
-        supplyKitchen = this.getIntent().getExtras().getString("supplyKitchen");
+        kitchenName = this.getIntent().getExtras().getString("supplyKitchen");
         supplyNotes = this.getIntent().getExtras().getString("supplyNotes");
+        supplyType = this.getIntent().getExtras().getString("supplyType");
+
 
         // Display the title of the page as the supply name.
         getActionBar().setTitle("Supply Details: " + supplyName);
@@ -50,7 +52,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         supplyNameTextView.setText(supplyName);
 
         supplyKitchenTextView = (TextView) findViewById(R.id.supply_kitchen);
-        supplyKitchenTextView.setText(supplyKitchen);
+        supplyKitchenTextView.setText(kitchenName);
 
         supplyNotesTextView = (TextView) findViewById(R.id.supply_notes);
         supplyNotesTextView.setText(supplyNotes);
@@ -58,7 +60,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         // Create an intent so that we can return to the previous page when we're done.
         Intent kitchenIntent = new Intent(this, KitchenActivity.class);
         // Save the relevant details about our Kitchen so they can be used in the new activity.
-        kitchenIntent.putExtra("kitchenName", supplyKitchen);
+        kitchenIntent.putExtra("supplyKitchen", kitchenName);
 
 
 
@@ -70,7 +72,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         // Create an intent so that we can return to the previous page when we're done.
         Intent kitchenIntent = new Intent(this, KitchenActivity.class);
         // Save the relevant details about our Kitchen so they can be used in the new activity.
-        kitchenIntent.putExtra("kitchenName", supplyKitchen);
+        kitchenIntent.putExtra("supplyKitchen", kitchenName);
         // Start the next Activity using your prepared Intent
         startActivity(kitchenIntent);
     }
@@ -78,18 +80,38 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         // Find the object in Parse using its ID, then delete it.
-        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
-        query.getInBackground(supplyID, new GetCallback<KitchenSupply>() {
-            public void done(KitchenSupply supply, ParseException e) {
-                if (e == null) {
-                    // Delete the object.
-                    supply.deleteInBackground();
-                } else {
-                    // Something went wrong...
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });
+
+        switch(supplyType) {
+            case "ingredient":
+                ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
+                queryI.getInBackground(supplyID, new GetCallback<Ingredient>() {
+                    public void done(Ingredient supply, ParseException e) {
+                        if (e == null) {
+                            // Delete the object.
+                            supply.deleteInBackground();
+                        } else {
+                            // Something went wrong...
+                            Log.d("score", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+                break;
+            case "equipment":
+                ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
+                queryE.getInBackground(supplyID, new GetCallback<Equipment>() {
+                    public void done(Equipment supply, ParseException e) {
+                        if (e == null) {
+                            // Delete the object.
+                            supply.deleteInBackground();
+                        } else {
+                            // Something went wrong...
+                            Log.d("score", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+        }
+
+
 
         // Once deleted, return to the previous page.
         finish();

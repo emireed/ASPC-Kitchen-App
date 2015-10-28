@@ -6,6 +6,7 @@ import com.parse.ParseClassName;
  * Created by Keighley on 10/25/2015.
  */
 
+
 @ParseClassName("Equipment")
 public class Equipment extends KitchenSupply {
     // Equipment has one additional data member, stored on Parse:
@@ -19,6 +20,10 @@ public class Equipment extends KitchenSupply {
         this.setNotes(notes);
         this.setInUse(inUse);
         saveInBackground();
+    }
+
+    public String getType() {
+        return "equipment";
     }
 
     public void setInUse(boolean inUse) {

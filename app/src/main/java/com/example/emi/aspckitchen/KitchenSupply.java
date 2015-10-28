@@ -62,4 +62,10 @@ public class KitchenSupply extends ParseObject {
     public String toString() {
         return getName();
     }
+
+
+    //TODO: fix this
+    public String getType() {
+        return "";
+    }
 }

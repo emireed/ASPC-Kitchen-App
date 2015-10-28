@@ -1,6 +1,7 @@
 package com.example.emi.aspckitchen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +16,9 @@ public class AddSupplyActivity extends Activity {
 
     EditText nameEditText, kitchenEditText, notesEditText, amountEditText;
     Button createButton, cancelButton;
-    String supplyName, supplyID, kitchenName, supplyNotes, type, amount;
-    String INGREDIENT = "ing";
-    String EQUIPMENT = "equ";
+    String supplyName, supplyID, supplyKitchen, supplyNotes, type, amount, currentKitchen;
+    String INGREDIENT = "ingredient";
+    String EQUIPMENT = "equipment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,8 @@ public class AddSupplyActivity extends Activity {
 
         // Tell the activity which XML layout to use
         setContentView(R.layout.activity_add_supply);
+
+        currentKitchen = this.getIntent().getExtras().getString("kitchenName");
 
         // Create the name text box.
         nameEditText = (EditText) findViewById(R.id.edit_supply_name);
@@ -39,12 +42,26 @@ public class AddSupplyActivity extends Activity {
         amountEditText = (EditText) findViewById(R.id.edit_amount);
         amountEditText.setVisibility(View.INVISIBLE);
 
+        type = "";
+
         // Create the create button.
         createButton = (Button) findViewById(R.id.create_button);
 
         // Create the cancel button.
         cancelButton = (Button) findViewById(R.id.cancel_button);
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Create an intent so that we can return to the previous page when we're done
+        Intent kitchenIntent = new Intent(this, KitchenActivity.class);
+        // Save the relevant details about our Kitchen so they can be used in the new activity.
+        kitchenIntent.putExtra("supplyKitchen", currentKitchen);
+        // Start the next Activity using your prepared Intent
+        startActivity(kitchenIntent);
     }
 
     public void onRadioButtonClicked(View v) {
@@ -87,8 +104,8 @@ public class AddSupplyActivity extends Activity {
             goodToSave = false;
         }
 
-        kitchenName = kitchenEditText.getText().toString();
-        if (kitchenName.matches("")){
+        supplyKitchen = kitchenEditText.getText().toString();
+        if (supplyKitchen.matches("")){
             Toast.makeText(this, "You must give this supply a kitchen", Toast.LENGTH_SHORT).show();
             goodToSave = false;
         }
@@ -102,17 +119,17 @@ public class AddSupplyActivity extends Activity {
 
         if (type.matches(INGREDIENT) && goodToSave) {
             amount = amountEditText.getText().toString();
-            Ingredient newSupply = new Ingredient(supplyName, kitchenName, supplyNotes, amount);
+            Ingredient newSupply = new Ingredient(supplyName, supplyKitchen, supplyNotes, amount);
             finish();
         }
 
         if (type.matches(EQUIPMENT) && goodToSave) {
-            Equipment newSupply = new Equipment(supplyName, kitchenName, supplyNotes, false);
+            Equipment newSupply = new Equipment(supplyName, supplyKitchen, supplyNotes, false);
             finish();
         }
 
 //        if (goodToSave) {
-//            KitchenSupply newSupply = new KitchenSupply(supplyName, kitchenName, supplyNotes);
+//            KitchenSupply newSupply = new KitchenSupply(supplyName, supplyKitchen, supplyNotes);
 //            finish();
 //        }
 

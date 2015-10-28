@@ -21,6 +21,10 @@ public class Ingredient extends KitchenSupply {
         saveInBackground();
     }
 
+    public String getType() {
+        return "ingredient";
+    }
+
     public void setAmount(String amount) {
         put("amount", amount);
     }

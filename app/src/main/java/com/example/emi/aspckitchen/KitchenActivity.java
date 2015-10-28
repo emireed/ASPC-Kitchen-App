@@ -38,7 +38,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        kitchenName = this.getIntent().getExtras().getString("kitchenName");
+        kitchenName = this.getIntent().getExtras().getString("supplyKitchen");
 
         // Display the title of the page as the kitchen name.
         getActionBar().setTitle(kitchenName);
@@ -75,6 +75,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         updateSupplyList();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,6 +96,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         String supplyID = supply.getObjectId();
         String supplyKitchen = supply.getKitchen();
         String supplyNotes = supply.getNotes();
+        String supplyType = supply.getType();
 
         // Create an Intent to take you over to a new DetailActivity
         Intent detailIntent = new Intent(this, DetailActivity.class);
@@ -104,6 +106,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         detailIntent.putExtra("supplyID", supplyID);
         detailIntent.putExtra("supplyKitchen", supplyKitchen);
         detailIntent.putExtra("supplyNotes", supplyNotes);
+        detailIntent.putExtra("supplyType", supplyType);
 
         // Start the next Activity using your prepared Intent
         startActivity(detailIntent);
@@ -113,6 +116,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     public void addKitchenSupply(View v) {
         // Create the intent to add a new supply, and go to that activity.
         Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
+        addSupplyIntent.putExtra("kitchenName", kitchenName);
         startActivity(addSupplyIntent);
     }
 
@@ -152,7 +156,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             }
         });
 //        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
-//        query.whereEqualTo("kitchen", kitchenName);
+//        query.whereEqualTo("kitchen", supplyKitchen);
 //        query.findInBackground(new FindCallback<KitchenSupply>() {
 //
 //            @Override
@@ -241,6 +245,8 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 //        }
 
     }
+
+
 
 
 }
