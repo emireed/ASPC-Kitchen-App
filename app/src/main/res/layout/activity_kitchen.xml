@@ -43,11 +43,20 @@
 
     <!-- List whose dataset is defined in code with an adapter -->
     <ListView
-        android:id="@+id/main_listview"
+        android:id="@+id/ingredient_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.53"
         android:layout_marginTop="20dp"/>
+
+
+    <ListView
+        android:id="@+id/equipment_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.53"
+        android:layout_marginTop="20dp"/>
+
     <Button
         android:id="@+id/refresh_button"
         android:layout_width="wrap_content"

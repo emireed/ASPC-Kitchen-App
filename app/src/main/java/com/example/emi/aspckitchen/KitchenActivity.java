@@ -29,9 +29,10 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 
     String kitchenName;
     Button addSupplyButton, refreshButton;
-    ListView mainListView;
-    ArrayAdapter mArrayAdapter;
-    ArrayList<KitchenSupply> mSupplyList = new ArrayList<KitchenSupply>();
+    ListView ingredientListView, equipmentListView;
+    ArrayAdapter mArrayAdapterIngredients, mArrayAdapterEquipment;
+    ArrayList<KitchenSupply> mEquipmentList = new ArrayList<KitchenSupply>();
+    ArrayList<KitchenSupply> mIngredientList = new ArrayList<KitchenSupply>();
 
 
     @Override
@@ -52,19 +53,23 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         refreshButton = (Button) findViewById(R.id.refresh_button);
 
         // Access the ListView
-        mainListView = (ListView) findViewById(R.id.main_listview);
+        ingredientListView = (ListView) findViewById(R.id.ingredient_listview);
+        equipmentListView = (ListView) findViewById(R.id.equipment_listview);
 
         // Populate the supply list with the list of supplies currently on Parse.
         updateSupplyList();
 
         // Create an ArrayAdapter for the ListView so we can display the items.
-        mArrayAdapter = new SupplyListAdapter(this, mSupplyList);
+        mArrayAdapterIngredients = new SupplyListAdapter(this, mIngredientList);
+        mArrayAdapterEquipment = new SupplyListAdapter(this, mEquipmentList);
 
         // Set the ListView to use the ArrayAdapter
-        mainListView.setAdapter(mArrayAdapter);
+        ingredientListView.setAdapter(mArrayAdapterIngredients);
+        equipmentListView.setAdapter(mArrayAdapterEquipment);
 
         // Set this activity to react to list items being pressed
-        mainListView.setOnItemClickListener(this);
+        ingredientListView.setOnItemClickListener(this);
+        equipmentListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -90,8 +95,16 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        KitchenSupply supply;
+
+        // Check which ListView was selected.
+        if(view.getId() == R.id.ingredient_listview) {
+            supply = mIngredientList.get(position);
+        }else {//if(view.getId() == R.id.equipment_listview) {
+            supply = mEquipmentList.get(position);
+        }
+
         // Get the supply
-        KitchenSupply supply = mSupplyList.get(position);
         String supplyName = supply.getName();
         String supplyID = supply.getObjectId();
         String supplyKitchen = supply.getKitchen();
@@ -126,7 +139,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 
     public void updateSupplyList() {
 
-        mSupplyList.clear();
+        mIngredientList.clear();
 
         // Get the equipment
         ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
@@ -136,8 +149,9 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             @Override
             public void done(List<Equipment> supplies, ParseException error) {
                 if(supplies != null){
-                    mSupplyList.addAll(supplies);
-                    mArrayAdapter.notifyDataSetChanged();
+                    mEquipmentList.clear();
+                    mEquipmentList.addAll(supplies);
+                    mArrayAdapterEquipment.notifyDataSetChanged();
                 }
             }
         });
@@ -150,8 +164,9 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             @Override
             public void done(List<Ingredient> supplies, ParseException error) {
                 if(supplies != null){
-                    mSupplyList.addAll(supplies);
-                    mArrayAdapter.notifyDataSetChanged();
+                    mIngredientList.clear();
+                    mIngredientList.addAll(supplies);
+                    mArrayAdapterIngredients.notifyDataSetChanged();
                 }
             }
         });
@@ -162,9 +177,9 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 //            @Override
 //            public void done(List<KitchenSupply> supplies, ParseException error) {
 //                if(supplies != null){
-//                    mSupplyList.clear();
-//                    mSupplyList.addAll(supplies);
-//                    mArrayAdapter.notifyDataSetChanged();
+//                    mIngredientList.clear();
+//                    mIngredientList.addAll(supplies);
+//                    mArrayAdapterIngredients.notifyDataSetChanged();
 //                }
 //            }
 //        });

@@ -44,10 +44,10 @@
         <activity
             android:name=".AddSupplyActivity"
             android:label="Add Supply"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".KitchenActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".KitchenActivity"/>
         </activity>
 
         <activity

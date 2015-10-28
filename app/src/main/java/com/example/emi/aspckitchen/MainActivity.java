@@ -39,11 +39,11 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
         // Define the buttons defined in the xml file.
         addKitchenButton = (Button) findViewById(R.id.add_kitchen_button);
-        addSupplyButton = (Button) findViewById(R.id.main_button);
+        //addSupplyButton = (Button) findViewById(R.id.main_button);
         refreshButton = (Button) findViewById(R.id.refresh_button);
 
         // Access the ListView
-        mainListView = (ListView) findViewById(R.id.main_listview);
+        mainListView = (ListView) findViewById(R.id.ingredient_listview);
 
         // Populate the supply list with the list of supplies currently on Parse.
         updateKitchenList();
@@ -88,7 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
         Intent kitchenIntent = new Intent(this, KitchenActivity.class);
 
         // Save the relevant details about our Kitchen so they can be used in the new activity.
-        kitchenIntent.putExtra("kitchenName", kitchenName);
+        kitchenIntent.putExtra("supplyKitchen", kitchenName);
 
         // Start the next Activity using your prepared Intent
         startActivity(kitchenIntent);
@@ -101,11 +101,11 @@ public class MainActivity extends Activity implements View.OnClickListener,
         startActivity(addKitchenIntent);
     }
 
-    public void addKitchenSupply(View v) {
-        // Create the intent to add a new supply, and go to that activity.
-        Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
-        startActivity(addSupplyIntent);
-    }
+//    public void addKitchenSupply(View v) {
+//        // Create the intent to add a new supply, and go to that activity.
+//        Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
+//        startActivity(addSupplyIntent);
+//    }
 
     public void refreshList(View v) {
         updateKitchenList();
