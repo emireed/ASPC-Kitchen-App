@@ -98,10 +98,13 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         KitchenSupply supply;
 
         // Check which ListView was selected.
-        if(view.getId() == R.id.ingredient_listview) {
+        if(parent.getId() == R.id.ingredient_listview) {
             supply = mIngredientList.get(position);
-        }else {//if(view.getId() == R.id.equipment_listview) {
+        }else if(parent.getId() == R.id.equipment_listview) {
             supply = mEquipmentList.get(position);
+        }
+        else {
+            return;
         }
 
         // Get the supply
