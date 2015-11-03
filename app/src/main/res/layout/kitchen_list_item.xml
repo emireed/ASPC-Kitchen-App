@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:id="@+id/supply_name"
+        android:id="@+id/kitchen_name"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_marginLeft="20dp"
@@ -16,24 +16,5 @@
         android:textColor="#000000"
         android:gravity="center_vertical"
         />
-    <!--<TextView-->
-        <!--android:id="@+id/supply_kitchen"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="26dp"-->
-        <!--android:text="Kitchen"-->
-        <!--android:textSize="22sp"-->
-        <!--android:layout_marginLeft="15dp"/>-->
-
-    <!--<TextView
-        android:id="@+id/firstLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/icon"
-        android:gravity="center_vertical"
-        android:text="Task Name"
-        android:textSize="16sp"
-        android:layout_alignBottom="@+id/finishBox" />-->
 
 </LinearLayout>

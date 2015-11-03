@@ -1,25 +1,16 @@
 package com.example.emi.aspckitchen;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Keighley on 10/25/2015.
@@ -33,6 +24,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     ArrayAdapter mArrayAdapterIngredients, mArrayAdapterEquipment;
     ArrayList<KitchenSupply> mEquipmentList = new ArrayList<KitchenSupply>();
     ArrayList<KitchenSupply> mIngredientList = new ArrayList<KitchenSupply>();
+    Intent detailIntent;
 
 
     @Override
@@ -47,30 +39,13 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         // Choose the correct XML file to use.
         setContentView(R.layout.activity_kitchen);
 
-
-        // Define the buttons defined in the xml file.
-        addSupplyButton = (Button) findViewById(R.id.main_button);
-        refreshButton = (Button) findViewById(R.id.refresh_button);
-
-        // Access the ListView
-        ingredientListView = (ListView) findViewById(R.id.ingredient_listview);
-        equipmentListView = (ListView) findViewById(R.id.equipment_listview);
+        createButtons();
+        createListViewsAndAdapters();
 
         // Populate the supply list with the list of supplies currently on Parse.
         updateSupplyList();
-
-        // Create an ArrayAdapter for the ListView so we can display the items.
-        mArrayAdapterIngredients = new SupplyListAdapter(this, mIngredientList);
-        mArrayAdapterEquipment = new SupplyListAdapter(this, mEquipmentList);
-
-        // Set the ListView to use the ArrayAdapter
-        ingredientListView.setAdapter(mArrayAdapterIngredients);
-        equipmentListView.setAdapter(mArrayAdapterEquipment);
-
-        // Set this activity to react to list items being pressed
-        ingredientListView.setOnItemClickListener(this);
-        equipmentListView.setOnItemClickListener(this);
     }
+
 
     @Override
     protected void onResume() {
@@ -97,7 +72,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 
         KitchenSupply supply;
 
-        // Check which ListView was selected.
+        // Check which ListView was selected, so we can select the correct supply.
         if(parent.getId() == R.id.ingredient_listview) {
             supply = mIngredientList.get(position);
         }else if(parent.getId() == R.id.equipment_listview) {
@@ -107,26 +82,20 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             return;
         }
 
-        // Get the supply
-        String supplyName = supply.getName();
-        String supplyID = supply.getObjectId();
-        String supplyKitchen = supply.getKitchen();
-        String supplyNotes = supply.getNotes();
-        String supplyType = supply.getType();
+        saveSupplyDetails(supply);
+        startActivity(detailIntent);
+    }
 
+    public void saveSupplyDetails(KitchenSupply supply) {
         // Create an Intent to take you over to a new DetailActivity
-        Intent detailIntent = new Intent(this, DetailActivity.class);
+        detailIntent = new Intent(this, DetailActivity.class);
 
         // Save the relevant details about our Supply so they can be used in the new activity.
-        detailIntent.putExtra("supplyName", supplyName);
-        detailIntent.putExtra("supplyID", supplyID);
-        detailIntent.putExtra("supplyKitchen", supplyKitchen);
-        detailIntent.putExtra("supplyNotes", supplyNotes);
-        detailIntent.putExtra("supplyType", supplyType);
-
-        // Start the next Activity using your prepared Intent
-        startActivity(detailIntent);
-
+        detailIntent.putExtra("supplyName", supply.getName());
+        detailIntent.putExtra("supplyID", supply.getObjectId());
+        detailIntent.putExtra("supplyKitchen", supply.getKitchen());
+        detailIntent.putExtra("supplyNotes", supply.getNotes());
+        detailIntent.putExtra("supplyType", supply.getType());
     }
 
     public void addKitchenSupply(View v) {
@@ -141,130 +110,30 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     }
 
     public void updateSupplyList() {
-
-        mIngredientList.clear();
-
-        // Get the equipment
-        ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
-        queryE.whereEqualTo("kitchen", kitchenName);
-        queryE.findInBackground(new FindCallback<Equipment>() {
-
-            @Override
-            public void done(List<Equipment> supplies, ParseException error) {
-                if(supplies != null){
-                    mEquipmentList.clear();
-                    mEquipmentList.addAll(supplies);
-                    mArrayAdapterEquipment.notifyDataSetChanged();
-                }
-            }
-        });
-
-        // Get the ingredients
-        ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
-        queryI.whereEqualTo("kitchen", kitchenName);
-        queryI.findInBackground(new FindCallback<Ingredient>() {
-
-            @Override
-            public void done(List<Ingredient> supplies, ParseException error) {
-                if(supplies != null){
-                    mIngredientList.clear();
-                    mIngredientList.addAll(supplies);
-                    mArrayAdapterIngredients.notifyDataSetChanged();
-                }
-            }
-        });
-//        ParseQuery<KitchenSupply> query = ParseQuery.getQuery(KitchenSupply.class);
-//        query.whereEqualTo("kitchen", supplyKitchen);
-//        query.findInBackground(new FindCallback<KitchenSupply>() {
-//
-//            @Override
-//            public void done(List<KitchenSupply> supplies, ParseException error) {
-//                if(supplies != null){
-//                    mIngredientList.clear();
-//                    mIngredientList.addAll(supplies);
-//                    mArrayAdapterIngredients.notifyDataSetChanged();
-//                }
-//            }
-//        });
+        ParseOperations.populateSupplyList(kitchenName, mEquipmentList, mIngredientList, mArrayAdapterEquipment, mArrayAdapterIngredients);
     }
 
-
-
-    public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
-
-        Context mContext;
-        ArrayList<KitchenSupply> data = null;
-
-
-        public SupplyListAdapter(Context ctx, ArrayList<KitchenSupply> data) {
-            super(ctx, android.R.layout.simple_list_item_1, data);
-            this.mContext = ctx;
-            this.data = data;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.row_supplylist, parent, false);
-
-            KitchenSupply supply = data.get(position);
-
-            TextView supplyNameTextView = (TextView) convertView.findViewById(R.id.supply_name);
-            String nameString = supply.getName();
-            supplyNameTextView.setText(nameString);
-
-            TextView supplyKitchenTextView = (TextView) convertView.findViewById(R.id.supply_kitchen);
-            String kitchenString = supply.getKitchen();
-            supplyKitchenTextView.setText(kitchenString);
-
-
-//            //TODO: Check if necessary
-//            SupplyHolder holder = new SupplyHolder();
-//            holder.supply = data.get(position);
-//            holder.name = supplyNameTextView;
-//            holder.kitchen = supplyKitchenTextView;
-//
-//            setupItem(holder);
-//            convertView.setTag(holder);
-
-
-            return convertView;
-        }
-
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public KitchenSupply getItem(int i) {
-            return data.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        //gets the data currently in the list
-        public ArrayList<KitchenSupply> getData(){
-            return data;
-        }
-
-//        private void setupItem(SupplyHolder holder) {
-//            holder.name.setText(holder.supply.getName());
-//            holder.kitchen.setText(holder.supply.getKitchen());
-//        }
-//
-//        public class SupplyHolder {
-//            KitchenSupply supply;
-//            TextView name;
-//            TextView kitchen;
-//        }
-
+    public void createButtons() {
+        // Define the buttons defined in the xml file.
+        addSupplyButton = (Button) findViewById(R.id.main_button);
+        refreshButton = (Button) findViewById(R.id.refresh_button);
     }
 
+    public void createListViewsAndAdapters() {
+        // Access the ListView
+        ingredientListView = (ListView) findViewById(R.id.ingredient_listview);
+        equipmentListView = (ListView) findViewById(R.id.equipment_listview);
 
+        // Create an ArrayAdapter for the ListView so we can display the items.
+        mArrayAdapterIngredients = new SupplyListAdapter(this, mIngredientList);
+        mArrayAdapterEquipment = new SupplyListAdapter(this, mEquipmentList);
 
+        // Set the ListView to use the ArrayAdapter
+        ingredientListView.setAdapter(mArrayAdapterIngredients);
+        equipmentListView.setAdapter(mArrayAdapterEquipment);
 
+        // Set this activity to react to list items being pressed
+        ingredientListView.setOnItemClickListener(this);
+        equipmentListView.setOnItemClickListener(this);
+    }
 }
