@@ -98,4 +98,8 @@ public class ParseOperations {
                 });
         }
     }
+
+    public static void saveInDatabase(KitchenSupply supply) {
+        supply.saveInBackground();
+    }
 }

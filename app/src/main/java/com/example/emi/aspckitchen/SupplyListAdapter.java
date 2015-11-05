@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.emi.aspckitchen.ParseOperations.saveInDatabase;
+
 /**
  * Created by Keighley on 11/1/2015.
  */
@@ -56,7 +58,7 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
                     supply.setInUse(true);
                     supplyStatusButton.setText("Return");
                 }
-                supply.saveInBackground();
+                saveInDatabase(supply);
             }
         });
 
