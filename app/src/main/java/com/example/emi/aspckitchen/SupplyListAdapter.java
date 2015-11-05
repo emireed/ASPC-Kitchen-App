@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.row_supplylist, parent, false);
 
-        KitchenSupply supply = data.get(position);
+        final KitchenSupply supply = data.get(position);
 
         // Displays the name of the supply.
         TextView supplyNameTextView = (TextView) convertView.findViewById(R.id.supply_name);
@@ -38,9 +39,26 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
         supplyNameTextView.setText(nameString);
 
         // Displays the kitchen of the supply.
-        TextView supplyKitchenTextView = (TextView) convertView.findViewById(R.id.supply_kitchen);
-        String kitchenString = supply.getKitchen();
-        supplyKitchenTextView.setText(kitchenString);
+        final Button supplyStatusButton = (Button) convertView.findViewById(R.id.supply_status_button);
+        final Boolean supplyIsInUse = supply.isInUse();
+        if (supplyIsInUse) {
+            supplyStatusButton.setText("Return");
+        } else {
+            supplyStatusButton.setText("Use");
+        }
+
+        supplyStatusButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (supplyIsInUse) {
+                    supply.setInUse(false);
+                    supplyStatusButton.setText("Use");
+                } else {
+                    supply.setInUse(true);
+                    supplyStatusButton.setText("Return");
+                }
+                supply.saveInBackground();
+            }
+        });
 
 
         return convertView;
