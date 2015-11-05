@@ -24,4 +24,9 @@
     <string name="selectEquipment">Equipment</string>
     <string name="selectIngredient">Ingredient</string>
 
+    <string name="addKitchenButton">Add Kitchen</string>
+
+    <string name="ingredientList"><u>Ingredients</u></string>
+    <string name="equipmentList"><u>Equipment</u></string>
+
 </resources>
