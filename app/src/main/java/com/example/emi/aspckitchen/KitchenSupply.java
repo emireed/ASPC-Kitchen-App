@@ -21,12 +21,14 @@ public class KitchenSupply extends ParseObject {
 
     public KitchenSupply(String name){
         this.setName(name);
+        this.setInUse(false);
         saveInBackground();
     }
 
     public KitchenSupply(String name, String kitchen) {
         this.setName(name);
         this.setKitchen(kitchen);
+        this.setInUse(false);
         saveInBackground();
     }
 
@@ -34,6 +36,7 @@ public class KitchenSupply extends ParseObject {
         this.setName(name);
         this.setKitchen(kitchen);
         this.setNotes(notes);
+        this.setInUse(false);
         saveInBackground();
     }
 
@@ -58,6 +61,10 @@ public class KitchenSupply extends ParseObject {
     }
 
     public String getNotes() { return getString("notes"); }
+
+    public void setInUse(boolean isInUse) { put("inUse", isInUse); }
+
+    public boolean isInUse() { return getBoolean("inUse"); }
 
     public String toString() {
         return getName();

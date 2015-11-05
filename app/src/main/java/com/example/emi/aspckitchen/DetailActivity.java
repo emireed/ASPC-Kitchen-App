@@ -2,6 +2,7 @@ package com.example.emi.aspckitchen;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +15,12 @@ import android.widget.TextView;
 
 public class DetailActivity extends Activity implements View.OnClickListener {
 
-    TextView detailTextView, supplyNameTextView, supplyKitchenTextView, supplyNotesTextView;
+    TextView detailTextView, supplyNameTextView, supplyKitchenTextView, supplyNotesTextView,
+            supplyStatusTextView;
     Button deleteButton;
     String supplyName, supplyID, kitchenName, supplyNotes, supplyType;
     Intent kitchenIntent;
+    Boolean supplyIsInUse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,14 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
         supplyNotesTextView = (TextView) findViewById(R.id.supply_notes);
         supplyNotesTextView.setText(supplyNotes);
+
+        supplyStatusTextView = (TextView) findViewById(R.id.supply_status);
+        if (supplyIsInUse) {
+            supplyStatusTextView.setText("Currently In Use");
+            supplyStatusTextView.setTextColor(Color.parseColor("#F44336"));
+        } else {
+            supplyStatusTextView.setText("Not In Use");
+        }
     }
 
     public void getSupplyDetails() {
@@ -85,5 +96,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         kitchenName = this.getIntent().getExtras().getString("supplyKitchen");
         supplyNotes = this.getIntent().getExtras().getString("supplyNotes");
         supplyType = this.getIntent().getExtras().getString("supplyType");
+        supplyIsInUse = this.getIntent().getExtras().getBoolean("supplyStatus");
     }
 }
