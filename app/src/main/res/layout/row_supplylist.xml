@@ -19,12 +19,14 @@
 
     <Button
         android:id="@+id/supply_status_button"
-        android:layout_width="60dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_height="32dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:text="Supply Status"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="#ffffff"
         android:background="#EF5350"
         android:focusable="false"
