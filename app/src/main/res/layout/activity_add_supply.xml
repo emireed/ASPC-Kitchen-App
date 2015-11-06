@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="Supply Name"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:inputType="textCapSentences"/>
 
     <EditText
         android:id="@+id/edit_kitchen"
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="Kitchen"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:inputType="textCapSentences"/>
 
     <EditText
         android:id="@+id/edit_notes"
@@ -36,7 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="Extra Notes"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:inputType="textCapSentences"/>
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

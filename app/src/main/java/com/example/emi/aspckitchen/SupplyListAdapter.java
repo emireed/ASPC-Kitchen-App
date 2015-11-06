@@ -1,6 +1,7 @@
 package com.example.emi.aspckitchen;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,10 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
         final Boolean supplyIsInUse = supply.isInUse();
         if (supplyIsInUse) {
             supplyStatusButton.setText("Return");
+            supplyStatusButton.setBackgroundColor(Color.parseColor("#C62828"));
         } else {
             supplyStatusButton.setText("Use");
+            supplyStatusButton.setBackgroundColor(Color.parseColor("#EF5350"));
         }
 
         supplyStatusButton.setOnClickListener(new View.OnClickListener() {
@@ -52,9 +55,11 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
                 if (supplyIsInUse) {
                     supply.setInUse(false);
                     supplyStatusButton.setText("Use");
+                    supplyStatusButton.setBackgroundColor(Color.parseColor("#EF5350"));
                 } else {
                     supply.setInUse(true);
                     supplyStatusButton.setText("Return");
+                    supplyStatusButton.setBackgroundColor(Color.parseColor("#C62828"));
                 }
                 supply.saveInBackground();
             }
