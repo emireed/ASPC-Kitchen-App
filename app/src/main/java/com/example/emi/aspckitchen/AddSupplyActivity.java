@@ -75,6 +75,8 @@ public class AddSupplyActivity extends Activity {
 
     public void createSupply(View v) {
 
+        goodToSave = true;
+
         saveSupplyName();
         saveSupplyKitchen();
         saveSupplyNotes();
