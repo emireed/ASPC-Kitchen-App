@@ -23,6 +23,42 @@
         android:textSize="22sp"
         android:inputType="textCapSentences"/>
 
+    <TextView
+        android:id="@+id/campus_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/addKitchenCampus"
+        android:textStyle="bold"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id="@+id/edit_kitchen_campus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="@string/addKitchenCampusHint"
+        android:textSize="22sp"
+        android:inputType="textCapSentences"/>
+
+    <TextView
+        android:id="@+id/accessibility_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/addKitchenAccessibility"
+        android:textStyle="bold"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id="@+id/edit_kitchen_accessibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="@string/addKitchenAccessibilityHint"
+        android:textSize="22sp"
+        android:inputType="textCapSentences"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -16,6 +16,11 @@
     <string name="cancelButton">Cancel</string>
 
     <string name="addKitchenName">Kitchen Name</string>
+    <string name="addKitchenCampus">Campus</string>
+    <string name="addKitchenCampusHint">What campus is the kitchen on?</string>
+    <string name="addKitchenAccessibility">Accessability</string>
+    <string name="addKitchenAccessibilityHint">When and to whom is the kitchen accessible</string>
+
     <string name="activity_details">Supply Details</string>
 
     <string name="addSupplyIntro">Create a New Supply</string>

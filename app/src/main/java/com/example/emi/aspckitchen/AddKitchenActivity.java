@@ -12,9 +12,9 @@ import android.widget.Toast;
  */
 public class AddKitchenActivity extends Activity {
 
-    EditText nameEditText;
+    EditText nameEditText, campusEditText, accessibilityEditText;
     Button createButton, cancelButton;
-    String kitchenName;
+    String kitchenName, kitchenCampus, kitchenAccessibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,12 @@ public class AddKitchenActivity extends Activity {
 
         // Create the name text box.
         nameEditText = (EditText) findViewById(R.id.edit_kitchen_name);
+
+        // Create the campus text box.
+        campusEditText = (EditText) findViewById(R.id.edit_kitchen_campus);
+
+        // Create the accessibility text box.
+        accessibilityEditText = (EditText) findViewById(R.id.edit_kitchen_accessibility);
 
         // Create the create and cancel buttons.
         createButton = (Button) findViewById(R.id.create_button);
@@ -44,6 +50,18 @@ public class AddKitchenActivity extends Activity {
         kitchenName = nameEditText.getText().toString();
         if (kitchenName.matches("")){
             Toast.makeText(this, "You must give this kitchen a name", Toast.LENGTH_SHORT).show();
+            goodToSave = false;
+        }
+
+        kitchenCampus = campusEditText.getText().toString();
+        if (kitchenCampus.matches("")) {
+            Toast.makeText(this, "You must give this kitchen a campus", Toast.LENGTH_SHORT).show();
+            goodToSave = false;
+        }
+
+        kitchenAccessibility = accessibilityEditText.getText().toString();
+        if (kitchenAccessibility.matches("")) {
+            Toast.makeText(this, "You must mark this kitchen's accessibility", Toast.LENGTH_SHORT).show();
             goodToSave = false;
         }
 

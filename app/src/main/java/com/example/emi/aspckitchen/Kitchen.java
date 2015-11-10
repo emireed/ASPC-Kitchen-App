@@ -21,6 +21,19 @@ public class Kitchen extends ParseObject {
         saveInBackground();
     }
 
+    public Kitchen(String name, String campus) {
+        this.setName(name);
+        this.setCampus(campus);
+        saveInBackground();
+    }
+
+    public Kitchen(String name, String campus, String accessibility) {
+        this.setName(name);
+        this.setCampus(campus);
+        this.setAccessibility(accessibility);
+        saveInBackground();
+    }
+
     public void setName(String name) {
         put("name", name);
     }
@@ -28,6 +41,14 @@ public class Kitchen extends ParseObject {
     public String getName() {
         return getString("name");
     }
+
+    public void setCampus(String campus) { put("campus", campus); }
+
+    public String getCampus() { return getString("campus"); }
+
+    public void setAccessibility(String accessibility) { put("accessibility", accessibility); }
+
+    public String getAccessibility() { return getString("accessibility"); }
 
     public String toString() {
         return getName();
