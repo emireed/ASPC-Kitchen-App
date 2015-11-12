@@ -32,10 +32,6 @@ public class ParseOperations {
 
     }
 
-    //TODO:POPULATE KITCHEN LIST BY CAMPUS. TAKE IN STRING OF CAMPUS
-    // Query iterms only with specific ftrain
-    // query.whereEqualTo("campus", "Harvey Mudd College"
-
     public static void populateSupplyList (String kitchenName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
                                     final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients) {
         // Get the equipment

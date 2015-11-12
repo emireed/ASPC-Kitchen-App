@@ -20,11 +20,6 @@ public class MainActivity extends Activity implements
     ArrayAdapter mArrayAdapter;
     ArrayList<Kitchen> mKitchenList = new ArrayList<Kitchen>();
 
-    //Create array list for each kitchen
-    //Create array adapter
-    //Create a new list view (AND UPDAte in activity_main XML)
-    //Account for clicking a kitchen-look att onItemClick -use a switch statement
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // On creation of the app, set up the relevant views, buttons, and lists.
