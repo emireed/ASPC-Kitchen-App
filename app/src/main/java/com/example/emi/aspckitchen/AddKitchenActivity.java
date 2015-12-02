@@ -66,7 +66,7 @@ public class AddKitchenActivity extends Activity {
         }
 
         if (goodToSave) {
-            Kitchen newKitchen = new Kitchen(kitchenName);
+            Kitchen newKitchen = new Kitchen(kitchenName, kitchenCampus, kitchenAccessibility);
             finish();
         }
     }

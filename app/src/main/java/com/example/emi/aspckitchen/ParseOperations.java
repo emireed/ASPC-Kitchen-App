@@ -32,6 +32,24 @@ public class ParseOperations {
 
     }
 
+    public static void populateKitchenByCampusList(final ArrayList<Kitchen> mKitchenList, final ArrayAdapter mArrayAdapter, String campusName){
+        ParseQuery<Kitchen> query = ParseQuery.getQuery(Kitchen.class);
+        query.whereEqualTo("campus", campusName);
+        query.findInBackground(new FindCallback<Kitchen>() {
+
+            @Override
+            public void done(List<Kitchen> kitchens, ParseException error) {
+                if (kitchens != null) {
+                    mKitchenList.clear();
+                    mKitchenList.addAll(kitchens);
+                    mArrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+    }
+
+
     public static void populateSupplyList (String kitchenName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
                                     final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients) {
         // Get the equipment

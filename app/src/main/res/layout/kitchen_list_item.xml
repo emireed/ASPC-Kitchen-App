@@ -8,11 +8,11 @@
     <TextView
         android:id="@+id/kitchen_name"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
+        android:layout_height="18dp"
         android:layout_marginLeft="20dp"
         android:singleLine="true"
         android:text="Supply Name"
-        android:textSize="22sp"
+        android:textSize="16sp"
         android:textColor="#000000"
         android:gravity="center_vertical"
         />

@@ -34,4 +34,10 @@
     <string name="ingredientList"><u>Ingredients</u></string>
     <string name="equipmentList"><u>Equipment</u></string>
 
+    <string name="Pomona"><u>Pomona College</u></string>
+    <string name="CMC"><u>Claremont Mckenna College</u></string>
+    <string name="Scripps"><u>Scripps College</u></string>
+    <string name="Mudd"><u>Harvey Mudd College</u></string>
+    <string name="Pitzer"><u>Pitzer College</u></string>
+
 </resources>
