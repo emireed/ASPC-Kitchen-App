@@ -15,10 +15,31 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements
         AdapterView.OnItemClickListener {
 
-    Button addKitchenButton, refreshButton;
-    ListView mainListView;
+    Button refreshButton;
+
+    /*ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    ArrayList<Kitchen> mKitchenList = new ArrayList<Kitchen>();
+    ArrayList<Kitchen> mKitchenList = new ArrayList<Kitchen>();*/
+
+    ListView pomonaListView;
+    ArrayAdapter pomonaArrayAdapter;
+    ArrayList<Kitchen> pomonaKitchenList = new ArrayList<Kitchen>();
+
+    ListView cmcListView;
+    ArrayAdapter cmcArrayAdapter;
+    ArrayList<Kitchen> cmcKitchenList = new ArrayList<Kitchen>();
+
+    ListView scrippsListView;
+    ArrayAdapter scrippsArrayAdapter;
+    ArrayList<Kitchen> scrippsKitchenList = new ArrayList<Kitchen>();
+
+    ListView muddListView;
+    ArrayAdapter muddArrayAdapter;
+    ArrayList<Kitchen> muddKitchenList = new ArrayList<Kitchen>();
+
+    ListView pitzerListView;
+    ArrayAdapter pitzerArrayAdapter;
+    ArrayList<Kitchen> pitzerKitchenList = new ArrayList<Kitchen>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +78,24 @@ public class MainActivity extends Activity implements
         // Create a new Kitchen activity to match the kitchen selected from the list.
 
         // Get the kitchen
-        Kitchen kitchen = mKitchenList.get(position);
+        Kitchen kitchen;
+
+        //Check which campus
+        if(parent.getId() == R.id.pomona_listview) {
+            kitchen = pomonaKitchenList.get(position);
+        }else if(parent.getId() == R.id.cmc_listview) {
+            kitchen = cmcKitchenList.get(position);
+        }else if(parent.getId() == R.id.scripps_listview){
+            kitchen = scrippsKitchenList.get(position);
+        }else if(parent.getId() == R.id.hmc_listview){
+            kitchen = muddKitchenList.get(position);
+        }else if(parent.getId() == R.id.pitzer_listview){
+            kitchen = pitzerKitchenList.get(position);
+        }
+        else {
+            return;
+        }
+
         String kitchenName = kitchen.getName();
 
         // Create an Intent to go to the Kitchen activity
@@ -73,18 +111,37 @@ public class MainActivity extends Activity implements
 
     public void accessButtons() {
         // Access the buttons defined in the xml file.
-        addKitchenButton = (Button) findViewById(R.id.add_kitchen_button);
         refreshButton = (Button) findViewById(R.id.refresh_button);
     }
 
     public void accessListView() {
         // Set up the ListView and connect it to the ArrayAdapter.
-        mainListView = (ListView) findViewById(R.id.ingredient_listview);
-        mArrayAdapter = new KitchenListAdapter(this, mKitchenList);
-        mainListView.setAdapter(mArrayAdapter);
+        pomonaListView = (ListView) findViewById(R.id.pomona_listview);
+        pomonaArrayAdapter = new KitchenListAdapter(this, pomonaKitchenList);
+        pomonaListView.setAdapter(pomonaArrayAdapter);
 
         // Set this activity to react to list items being pressed
-        mainListView.setOnItemClickListener(this);
+        pomonaListView.setOnItemClickListener(this);
+
+        cmcListView = (ListView) findViewById(R.id.cmc_listview);
+        cmcArrayAdapter = new KitchenListAdapter(this, cmcKitchenList);
+        cmcListView.setAdapter(cmcArrayAdapter);
+        cmcListView.setOnItemClickListener(this);
+
+        scrippsListView = (ListView) findViewById(R.id.scripps_listview);
+        scrippsArrayAdapter = new KitchenListAdapter(this, scrippsKitchenList);
+        scrippsListView.setAdapter(scrippsArrayAdapter);
+        scrippsListView.setOnItemClickListener(this);
+
+        muddListView = (ListView) findViewById(R.id.hmc_listview);
+        muddArrayAdapter = new KitchenListAdapter(this, muddKitchenList);
+        muddListView.setAdapter(muddArrayAdapter);
+        muddListView.setOnItemClickListener(this);
+
+        pitzerListView = (ListView) findViewById(R.id.pitzer_listview);
+        pitzerArrayAdapter = new KitchenListAdapter(this, pitzerKitchenList);
+        pitzerListView.setAdapter(pitzerArrayAdapter);
+        pitzerListView.setOnItemClickListener(this);
     }
 
     public void addKitchen(View v) {
@@ -98,7 +155,12 @@ public class MainActivity extends Activity implements
     }
 
     public void updateKitchenList() {
-        ParseOperations.populateKitchenList(mKitchenList, mArrayAdapter);
+        //use new parse function once per campus
+        ParseOperations.populateKitchenByCampusList(pomonaKitchenList, pomonaArrayAdapter, "Pomona");
+        ParseOperations.populateKitchenByCampusList(cmcKitchenList, cmcArrayAdapter, "Claremont Mckenna");
+        ParseOperations.populateKitchenByCampusList(scrippsKitchenList, scrippsArrayAdapter, "Scripps");
+        ParseOperations.populateKitchenByCampusList(muddKitchenList, muddArrayAdapter, "Harvey Mudd");
+        ParseOperations.populateKitchenByCampusList(pitzerKitchenList, pitzerArrayAdapter, "Pitzer");
     }
 
 }
