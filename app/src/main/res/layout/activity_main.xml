@@ -5,7 +5,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- List whose dataset is defined in code with an adapter -->
 
     <TextView
         android:layout_width="wrap_content"

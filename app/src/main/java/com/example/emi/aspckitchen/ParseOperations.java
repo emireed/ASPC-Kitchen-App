@@ -16,6 +16,38 @@ import java.util.List;
  */
 public class ParseOperations {
 
+    public static void searchByName(String itemName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
+                                    final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients){
+        //Create query to for searching through equipment and ingredients
+        ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
+        ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
+
+        queryI.whereStartsWith("name", itemName);
+        queryE.whereStartsWith("name", itemName);
+
+        queryE.findInBackground(new FindCallback<Equipment>() {
+
+            @Override
+            public void done(List<Equipment> supplies, ParseException error) {
+                if(supplies != null){
+                    mEquipmentList.clear();
+                    mEquipmentList.addAll(supplies);
+                    mArrayAdapterEquipment.notifyDataSetChanged();
+                }
+            }
+        });
+        queryI.findInBackground(new FindCallback<Ingredient>() {
+            @Override
+            public void done(List<Ingredient> supplies, ParseException error) {
+                if(supplies != null){
+                    mIngredientList.clear();
+                    mIngredientList.addAll(supplies);
+                    mArrayAdapterIngredients.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
     public static void populateKitchenList(final ArrayList<Kitchen> mKitchenList, final ArrayAdapter mArrayAdapter) {
         ParseQuery<Kitchen> query = ParseQuery.getQuery(Kitchen.class);
         query.findInBackground(new FindCallback<Kitchen>() {
