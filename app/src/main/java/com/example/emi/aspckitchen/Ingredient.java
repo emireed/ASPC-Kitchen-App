@@ -13,9 +13,10 @@ public class Ingredient extends KitchenSupply {
 
     public Ingredient() {};
 
-    public Ingredient(String name, String kitchen, String notes, String amount) {
+    public Ingredient(String name, String kitchen, String campus, String notes, String amount) {
         this.setName(name);
         this.setKitchen(kitchen);
+        this.setCampus(campus);
         this.setNotes(notes);
         this.setAmount(amount);
         saveInBackground();

@@ -23,14 +23,24 @@
         android:textSize="22sp"
         android:inputType="textCapSentences"/>
 
-    <EditText
-        android:id="@+id/edit_kitchen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Kitchen"
-        android:textSize="22sp"
-        android:inputType="textCapSentences"/>
+    <!--<EditText-->
+        <!--android:id="@+id/edit_campus"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:hint="Campus"-->
+        <!--android:textSize="22sp"-->
+        <!--android:inputType="textCapSentences"/>-->
+
+    <Spinner
+        android:id="@+id/campus_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/kitchen_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/edit_notes"

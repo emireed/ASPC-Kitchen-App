@@ -50,11 +50,12 @@ public class ParseOperations {
     }
 
 
-    public static void populateSupplyList (String kitchenName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
+    public static void populateSupplyList (String kitchenName, String campusName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
                                     final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients) {
         // Get the equipment
         ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
         queryE.whereEqualTo("kitchen", kitchenName);
+        queryE.whereEqualTo("campus", campusName);
         queryE.findInBackground(new FindCallback<Equipment>() {
 
             @Override
@@ -70,6 +71,7 @@ public class ParseOperations {
         // Get the ingredients
         ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
         queryI.whereEqualTo("kitchen", kitchenName);
+        queryI.whereEqualTo("campus", campusName);
         queryI.findInBackground(new FindCallback<Ingredient>() {
 
             @Override

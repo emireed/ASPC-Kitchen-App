@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class KitchenActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemClickListener{
 
-    String kitchenName;
+    String kitchenName, campusName;
     Button addSupplyButton, refreshButton;
     ListView ingredientListView, equipmentListView;
     ArrayAdapter mArrayAdapterIngredients, mArrayAdapterEquipment;
@@ -32,6 +32,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
 
         kitchenName = this.getIntent().getExtras().getString("supplyKitchen");
+        campusName = this.getIntent().getExtras().getString("campusName");
 
         // Display the title of the page as the kitchen name.
         getActionBar().setTitle(kitchenName);
@@ -103,6 +104,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         // Create the intent to add a new supply, and go to that activity.
         Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
         addSupplyIntent.putExtra("kitchenName", kitchenName);
+        addSupplyIntent.putExtra("campusName", campusName);
         startActivity(addSupplyIntent);
     }
 
@@ -111,7 +113,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
     }
 
     public void updateSupplyList() {
-        ParseOperations.populateSupplyList(kitchenName, mEquipmentList, mIngredientList, mArrayAdapterEquipment, mArrayAdapterIngredients);
+        ParseOperations.populateSupplyList(kitchenName, campusName, mEquipmentList, mIngredientList, mArrayAdapterEquipment, mArrayAdapterIngredients);
     }
 
     public void createButtons() {

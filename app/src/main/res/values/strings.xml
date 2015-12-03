@@ -40,4 +40,26 @@
     <string name="Mudd"><u>Harvey Mudd College</u></string>
     <string name="Pitzer"><u>Pitzer College</u></string>
 
+
+    <string-array name="campus_array">
+        <item>Pomona</item>
+        <item>Harvey Mudd</item>
+    </string-array>
+
+    <string-array name="harveymudd_kitchen_array">
+        <item>Case</item>
+        <item>Drinkward</item>
+        <item>Linde</item>
+        <item>Sontag</item>
+        <item>South</item>
+    </string-array>
+
+    <string-array name="pomona_kitchen_array">
+        <item>Harwood</item>
+        <item>Lyon</item>
+        <item>Oldenborg</item>
+        <item>Sontag</item>
+        <item>Wig</item>
+    </string-array>
+
 </resources>

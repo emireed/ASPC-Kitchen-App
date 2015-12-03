@@ -80,12 +80,14 @@ public class MainActivity extends Activity implements
         }
 
         String kitchenName = kitchen.getName();
+        String campusName = kitchen.getCampus();
 
         // Create an Intent to go to the Kitchen activity
         Intent kitchenIntent = new Intent(this, KitchenActivity.class);
 
         // Save the relevant details about our Kitchen so they can be used in the new activity.
         kitchenIntent.putExtra("supplyKitchen", kitchenName);
+        kitchenIntent.putExtra("campusName", campusName);
 
         // Start the next Activity using your prepared Intent
         startActivity(kitchenIntent);

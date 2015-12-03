@@ -14,9 +14,10 @@ public class Equipment extends KitchenSupply {
 
     public Equipment() {};
 
-    public Equipment(String name, String kitchen, String notes, boolean inUse) {
+    public Equipment(String name, String kitchen, String campus, String notes, boolean inUse) {
         this.setName(name);
         this.setKitchen(kitchen);
+        this.setCampus(campus);
         this.setNotes(notes);
         this.setInUse(inUse);
         saveInBackground();

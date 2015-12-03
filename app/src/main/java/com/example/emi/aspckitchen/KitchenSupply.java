@@ -12,6 +12,7 @@ public class KitchenSupply extends ParseObject {
     // The data members of this class are stored on Parse:
     // String name;
     // String kitchen;
+    // String campus;
     // String notes;
 
 
@@ -32,9 +33,10 @@ public class KitchenSupply extends ParseObject {
         saveInBackground();
     }
 
-    public KitchenSupply(String name, String kitchen, String notes) {
+    public KitchenSupply(String name, String kitchen, String campus, String notes) {
         this.setName(name);
         this.setKitchen(kitchen);
+        this.setCampus(campus);
         this.setNotes(notes);
         this.setInUse(false);
         saveInBackground();
@@ -54,6 +56,14 @@ public class KitchenSupply extends ParseObject {
 
     public String getKitchen() {
         return getString("kitchen");
+    }
+
+    public void setCampus(String campus) {
+        put("campus", campus);
+    }
+
+    public String getCampus() {
+        return getString("campus");
     }
 
     public void setNotes(String notes) {
