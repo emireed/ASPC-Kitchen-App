@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:padding="6dp"
+    android:gravity="center_vertical">
+
+
+    <TextView
+        android:id="@+id/supply_name"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginLeft="20dp"
+        android:singleLine="true"
+        android:text="Supply Name"
+        android:textSize="22sp"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/kitchen_name"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginLeft="20dp"
+        android:singleLine="true"
+        android:text="Kitchen Name"
+        android:textSize="20sp"
+        android:textColor="#222222"
+        android:layout_toRightOf="@+id/supply_name"
+        />
+
+    <Button
+        android:id="@+id/supply_status_button"
+        android:layout_width="wrap_content"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="Supply Status"
+        android:textSize="13sp"
+        android:textColor="#ffffff"
+        android:background="#EF5350"
+        android:focusable="false"
+        android:clickable="true"/>
+
+</RelativeLayout>
