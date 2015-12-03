@@ -40,20 +40,6 @@ public class SearchActivity extends Activity implements
 
     }
 
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        setIntent(intent);
-//        handleIntent(intent);
-//    }
-//
-//    private void handleIntent(Intent intent) {
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            doSearch(query);
-//
-//        }
-//    }
-
     private void doSearch(String queryStr) {
         ParseOperations.searchByName(queryStr, mEquipmentList, mIngredientList, mArrayAdapterEquipment, mArrayAdapterIngredients);
     }

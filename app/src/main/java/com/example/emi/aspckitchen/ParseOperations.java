@@ -18,6 +18,7 @@ public class ParseOperations {
 
     public static void searchByName(String itemName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
                                     final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients){
+
         //Create query to for searching through equipment and ingredients
         ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
         ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
