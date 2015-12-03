@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ASPC Kitchen</string>
+    <string name="app_name">5C Kitchen App</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -41,5 +41,9 @@
     <string name="Pitzer"><u>Pitzer College</u></string>
 
     <string name="app_label">5C Kitchen App</string>
+    <string name="search_label">Item Search</string>
+    <string name="search_item">Search</string>
+
+
 
 </resources>

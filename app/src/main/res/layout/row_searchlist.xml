@@ -26,6 +26,7 @@
         android:text="Kitchen Name"
         android:textSize="20sp"
         android:textColor="#222222"
+        android:layout_toRightOf="@+id/supply_name"
         />
 
     <Button

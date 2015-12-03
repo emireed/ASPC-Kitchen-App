@@ -3,11 +3,13 @@ package com.example.emi.aspckitchen;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,7 +17,9 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements
         AdapterView.OnItemClickListener {
 
-    Button refreshButton;
+    Button refreshButton, searchButton;
+    EditText searchEditText;
+
 
     /*ListView mainListView;
     ArrayAdapter mArrayAdapter;
@@ -53,6 +57,8 @@ public class MainActivity extends Activity implements
         // Define the buttons and listviews used in this activity.
         accessButtons();
         accessListView();
+        searchEditText = (EditText)findViewById(R.id.search_listview);
+
 
         // Initial population of KitchenList with current kitchens.
         updateKitchenList();
@@ -112,6 +118,7 @@ public class MainActivity extends Activity implements
     public void accessButtons() {
         // Access the buttons defined in the xml file.
         refreshButton = (Button) findViewById(R.id.refresh_button);
+        searchButton = (Button) findViewById(R.id.search_button);
     }
 
     public void accessListView() {
@@ -152,6 +159,18 @@ public class MainActivity extends Activity implements
 
     public void refreshList(View v) {
         updateKitchenList();
+    }
+
+    public void search(View v){
+        // Create an Intent to go to the Kitchen activity
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+
+        String searchText = searchEditText.getText().toString();
+        Log.d("search", searchText);
+
+        // Save the relevant details about our Kitchen so they can be used in the new activity.
+        searchIntent.putExtra("searchString", searchText);
+        startActivity(searchIntent);
     }
 
     public void updateKitchenList() {

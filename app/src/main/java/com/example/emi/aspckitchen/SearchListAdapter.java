@@ -42,7 +42,7 @@ public class SearchListAdapter extends ArrayAdapter<KitchenSupply> {
         // Displays the name of the kitchen
         TextView supplyKitchenTextView = (TextView) convertView.findViewById(R.id.kitchen_name);
         String kitchenString = supply.getKitchen();
-        supplyNameTextView.setText(kitchenString);
+        supplyKitchenTextView.setText(kitchenString);
 
         // Displays the kitchen of the supply.
         Button supplyStatusButton = (Button) convertView.findViewById(R.id.supply_status_button);
