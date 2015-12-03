@@ -18,7 +18,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     TextView detailTextView, supplyNameTextView, supplyKitchenTextView, supplyNotesTextView,
             supplyStatusTextView;
     Button deleteButton;
-    String supplyName, supplyID, kitchenName, supplyNotes, supplyType;
+    String supplyName, campusName, supplyID, kitchenName, supplyNotes, supplyType;
     Intent kitchenIntent;
     Boolean supplyIsInUse;
 
@@ -59,6 +59,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         kitchenIntent = new Intent(this, KitchenActivity.class);
         // Save the relevant details about our Kitchen so they can be used in the new activity.
         kitchenIntent.putExtra("supplyKitchen", kitchenName);
+        kitchenIntent.putExtra("campusName", campusName);
     }
 
     public void createButtons() {
@@ -94,6 +95,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         supplyName = this.getIntent().getExtras().getString("supplyName");
         supplyID = this.getIntent().getExtras().getString("supplyID");
         kitchenName = this.getIntent().getExtras().getString("supplyKitchen");
+        campusName = this.getIntent().getExtras().getString("campusName");
         supplyNotes = this.getIntent().getExtras().getString("supplyNotes");
         supplyType = this.getIntent().getExtras().getString("supplyType");
         supplyIsInUse = this.getIntent().getExtras().getBoolean("supplyStatus");

@@ -94,6 +94,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         // Save the relevant details about our Supply so they can be used in the new activity.
         detailIntent.putExtra("supplyName", supply.getName());
         detailIntent.putExtra("supplyID", supply.getObjectId());
+        detailIntent.putExtra("campusName", supply.getCampus());
         detailIntent.putExtra("supplyKitchen", supply.getKitchen());
         detailIntent.putExtra("supplyNotes", supply.getNotes());
         detailIntent.putExtra("supplyType", supply.getType());
