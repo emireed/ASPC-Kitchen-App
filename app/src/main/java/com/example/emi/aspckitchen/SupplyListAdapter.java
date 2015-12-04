@@ -49,11 +49,11 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
         if (supplyIsInUse) {
             supplyStatusButton.setTag("True");
             supplyStatusButton.setText("Return");
-            supplyStatusButton.setBackgroundColor(Color.parseColor("#C62828"));
+            supplyStatusButton.setBackgroundColor(Color.parseColor("#C41852"));
         } else {
             supplyStatusButton.setTag("False");
             supplyStatusButton.setText("Use");
-            supplyStatusButton.setBackgroundColor(Color.parseColor("#EF5350"));
+            supplyStatusButton.setBackgroundColor(Color.parseColor("#E71E62"));
         }
 
         supplyStatusButton.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +73,11 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
         if (isInUse) {
             supply.setInUse(false);
             supplyStatusButton.setText("Use");
-            supplyStatusButton.setBackgroundColor(Color.parseColor("#EF5350"));
+            supplyStatusButton.setBackgroundColor(Color.parseColor("#E71E62"));
         } else {
             supply.setInUse(true);
             supplyStatusButton.setText("Return");
-            supplyStatusButton.setBackgroundColor(Color.parseColor("#C62828"));
+            supplyStatusButton.setBackgroundColor(Color.parseColor("#C41852"));
         }
         saveInDatabase(supply);
     }
