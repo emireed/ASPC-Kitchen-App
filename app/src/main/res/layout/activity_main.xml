@@ -17,7 +17,8 @@
             android:layout_marginTop="15dp"
             android:hint="Enter Item To Search"
             android:textSize="22sp"
-            android:inputType="textCapSentences"/>
+            android:inputType="textCapSentences"
+            />
 
         <Button
             android:id="@+id/search_button"
