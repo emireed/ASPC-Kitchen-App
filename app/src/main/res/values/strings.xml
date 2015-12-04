@@ -31,8 +31,8 @@
 
     <string name="addKitchenButton">Add Kitchen</string>
 
-    <string name="ingredientList"><u>Ingredients</u></string>
-    <string name="equipmentList"><u>Equipment</u></string>
+    <string name="ingredientList"><b>Ingredients</b></string>
+    <string name="equipmentList"><b>Equipment</b></string>
 
     <string name="Pomona"><b>Pomona College</b></string>
     <string name="CMC"><b>Claremont Mckenna College</b></string>
