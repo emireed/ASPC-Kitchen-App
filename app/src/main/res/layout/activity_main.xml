@@ -23,12 +23,14 @@
         <Button
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:text="@string/search_item"
             android:textColor="#ffffff"
-            android:background="#2196F3"
+            android:background="#00ACC1"
             android:onClick="search"/>
 
     </LinearLayout>
