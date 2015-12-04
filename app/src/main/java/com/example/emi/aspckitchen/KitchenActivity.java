@@ -1,14 +1,10 @@
 package com.example.emi.aspckitchen;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Outline;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -125,7 +121,6 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 
     public void createButtons() {
         // Define the buttons defined in the xml file.
-        addSupplyButton = (Button) findViewById(R.id.main_button);
         refreshButton = (Button) findViewById(R.id.refresh_button);
 
         View addButton = findViewById(R.id.add_button);

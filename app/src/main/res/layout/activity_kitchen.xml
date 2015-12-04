@@ -28,17 +28,7 @@
             android:gravity="center"
             android:hint="@string/enter_item"
             android:layout_weight="0.7" />-->
-        <Button
-            android:id="@+id/main_button"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#2196F3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:onClick="addKitchenSupply"
-            android:textSize="18sp"
-            android:textColor="#ffffff"/>
+
     </LinearLayout>
 
     <!-- List whose dataset is defined in code with an adapter -->
@@ -117,7 +107,6 @@
         android:layout_marginEnd="@dimen/add_button_margin"
         android:scaleType="fitCenter"
         android:background="@null"
-        android:backgroundTint="@android:color/black"
         android:onClick="addKitchenSupply"
         android:src="@mipmap/ic_add_icon_5"
         />

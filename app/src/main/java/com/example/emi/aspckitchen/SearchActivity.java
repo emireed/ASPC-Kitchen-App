@@ -29,7 +29,7 @@ public class SearchActivity extends Activity implements
 //        handleIntent(getIntent());
 
         // Choose the correct XML file to use.
-        setContentView(R.layout.activity_kitchen);
+        setContentView(R.layout.activity_search);
         createListViewAndAdapter();
 
         String searchText = this.getIntent().getExtras().getString("searchString");
