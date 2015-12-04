@@ -106,5 +106,5 @@
         android:layout_marginLeft="20dp"
         android:text="@string/deleteButton"
         android:textColor="#ffffff"
-        android:background="#F44336"/>
+        android:background="#2196F3"/>
 </LinearLayout>

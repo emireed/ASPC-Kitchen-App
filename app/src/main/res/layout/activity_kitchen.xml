@@ -13,7 +13,6 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:text="Welcome to the ASPC Kitchen Application!"/>-->
-
     <LinearLayout
         android:layout_marginTop="20dp"
         android:orientation="horizontal"

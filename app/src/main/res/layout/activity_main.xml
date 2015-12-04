@@ -5,7 +5,33 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- List whose dataset is defined in code with an adapter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:hint="Enter Item To Search"
+            android:textSize="22sp"
+            android:inputType="textCapSentences" />
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/search_item"
+            android:textColor="#ffffff"
+            android:background="#2196F3"
+            android:onClick="search"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
