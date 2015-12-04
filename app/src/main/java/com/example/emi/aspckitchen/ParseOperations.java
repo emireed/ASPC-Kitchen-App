@@ -23,8 +23,8 @@ public class ParseOperations {
         ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
         ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
 
-        queryI.whereEqualTo("name", itemName);
-        queryE.whereEqualTo("name", itemName);
+        queryI.whereContains("name", itemName);
+        queryE.whereContains("name", itemName);
 
         queryE.findInBackground(new FindCallback<Equipment>() {
 
