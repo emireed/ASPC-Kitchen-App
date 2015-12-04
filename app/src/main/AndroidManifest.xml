@@ -59,7 +59,8 @@
                 android:value=".MainActivity"/>
         </activity>
 
-        <activity android:name=".SearchActivity" >
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
