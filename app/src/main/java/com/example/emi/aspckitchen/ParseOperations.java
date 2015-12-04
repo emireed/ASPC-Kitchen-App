@@ -152,6 +152,41 @@ public class ParseOperations {
         }
     }
 
+
+    public static void confirmSupply(String supplyID, String supplyType) {
+        switch(supplyType) {
+
+            case "ingredient":
+                ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
+                queryI.getInBackground(supplyID, new GetCallback<Ingredient>() {
+                    public void done(Ingredient supply, ParseException e) {
+                        if (e == null) {
+                            // Delete the object.
+                            //supply.deleteInBackground();
+                        } else {
+                            // Something went wrong...
+                            Log.d("score", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+                break;
+
+            case "equipment":
+                ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
+                queryE.getInBackground(supplyID, new GetCallback<Equipment>() {
+                    public void done(Equipment supply, ParseException e) {
+                        if (e == null) {
+                            // Delete the object.
+                            //supply.deleteInBackground();
+                        } else {
+                            // Something went wrong...
+                            Log.d("score", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+        }
+    }
+
     public static void saveInDatabase(KitchenSupply supply) {
         supply.saveInBackground();
     }

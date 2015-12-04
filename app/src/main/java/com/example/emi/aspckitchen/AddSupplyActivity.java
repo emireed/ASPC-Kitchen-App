@@ -139,6 +139,7 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         if (goodToSave) {
             amount = amountEditText.getText().toString();
             Ingredient newSupply = new Ingredient(supplyName, supplyKitchen, supplyCampus, supplyNotes, amount);
+            ParseOperations.confirmSupply(newSupply.getObjectId(), INGREDIENT);
             finish();
         }
     }
@@ -146,6 +147,7 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
     public void createEquipment() {
         if (goodToSave) {
             Equipment newSupply = new Equipment(supplyName, supplyKitchen, supplyCampus, supplyNotes, false);
+            ParseOperations.confirmSupply(newSupply.getObjectId(), EQUIPMENT);
             finish();
         }
     }
