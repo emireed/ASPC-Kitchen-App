@@ -40,6 +40,7 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         createButtons();
         createEditTexts();
         createSpinners();
+        setSpinnersToCurrent();
 
         // Initialize the supply type and campus to be empty so we can check for user input.
         type = "";
@@ -193,6 +194,22 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         kitchenSpinner.setAdapter(kitchenAdapter);
 
         kitchenSpinner.setOnItemSelectedListener(this);
+    }
+    
+    public void setSpinnersToCurrent() {
+        // Set the campus spinner.
+        int index = 0;
+
+        for (int i=0;i<campusSpinner.getCount();i++){
+            if (campusSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(currentCampus)){
+                index = i;
+                break;
+            }
+        }
+        
+        campusSpinner.setSelection(index);
+        
+        // Set the kitchen spinner.
     }
 
 
