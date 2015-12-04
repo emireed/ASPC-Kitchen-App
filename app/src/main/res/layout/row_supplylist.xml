@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/supply_name"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:singleLine="true"
         android:text="Supply Name"

@@ -34,7 +34,7 @@
             android:background="#2196F3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search"
+            android:text="@string/enter_item"
             android:onClick="addKitchenSupply"
             android:textSize="18sp"
             android:textColor="#ffffff"/>
