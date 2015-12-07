@@ -209,7 +209,21 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         
         campusSpinner.setSelection(index);
         
+
+    }
+
+    public void setKitchenSpinnerToCurrent() {
         // Set the kitchen spinner.
+        int index2 = 0;
+
+        for (int i=0;i<kitchenSpinner.getCount();i++){
+            if (kitchenSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(currentKitchen)){
+                index2 = i;
+                break;
+            }
+        }
+
+        kitchenSpinner.setSelection(index2);
     }
 
 
@@ -228,7 +242,9 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
                         R.array.harveymudd_kitchen_array, android.R.layout.simple_spinner_item);
             }
             kitchenSpinner.setAdapter(kitchenAdapter);
-            //kitchenAdapter.notifyDataSetChanged();
+            if (supplyCampus.equals(currentCampus)) {
+                setKitchenSpinnerToCurrent();
+            }
 
         }else if(parent.getId() == R.id.kitchen_spinner){
             supplyKitchen = parent.getItemAtPosition(pos).toString();        }
