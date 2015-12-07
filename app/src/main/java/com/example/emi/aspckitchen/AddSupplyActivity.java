@@ -17,7 +17,7 @@ import android.widget.Toast;
  */
 public class AddSupplyActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-    EditText nameEditText, kitchenEditText, campusEditText, notesEditText, amountEditText;
+    EditText nameEditText, notesEditText, amountEditText;
     Button createButton, cancelButton;
     Spinner campusSpinner, kitchenSpinner;
     ArrayAdapter<CharSequence> campusAdapter, kitchenAdapter;
