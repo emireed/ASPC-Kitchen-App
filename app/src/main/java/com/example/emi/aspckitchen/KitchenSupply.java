@@ -80,9 +80,4 @@ public class KitchenSupply extends ParseObject {
         return getName();
     }
 
-
-    //TODO: fix this
-    public String getType() {
-        return "";
-    }
 }

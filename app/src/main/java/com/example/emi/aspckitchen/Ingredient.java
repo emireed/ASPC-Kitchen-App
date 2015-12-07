@@ -29,4 +29,5 @@ public class Ingredient extends KitchenSupply {
     public void setAmount(String amount) {
         put("amount", amount);
     }
+    public String getAmount() {return getString("amount");}
 }

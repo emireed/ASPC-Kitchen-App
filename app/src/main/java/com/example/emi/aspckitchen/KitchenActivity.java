@@ -99,7 +99,6 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         detailIntent.putExtra("campusName", supply.getCampus());
         detailIntent.putExtra("supplyKitchen", supply.getKitchen());
         detailIntent.putExtra("supplyNotes", supply.getNotes());
-        detailIntent.putExtra("supplyType", supply.getType());
         detailIntent.putExtra("supplyStatus", supply.isInUse());
     }
 
