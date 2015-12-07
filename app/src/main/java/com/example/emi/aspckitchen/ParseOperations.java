@@ -16,8 +16,11 @@ import java.util.List;
  */
 public class ParseOperations {
 
-    public static void searchByName(String itemName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
-                                    final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients){
+    /* Populate the given supply list using a search query. */
+    public static void searchByName(String itemName, final ArrayList<KitchenSupply> mEquipmentList,
+                                    final ArrayList<KitchenSupply> mIngredientList,
+                                    final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter
+                                            mArrayAdapterIngredients){
 
         //Create query to for searching through equipment and ingredients
         ParseQuery<Equipment> queryE = ParseQuery.getQuery(Equipment.class);
@@ -49,6 +52,7 @@ public class ParseOperations {
         });
     }
 
+    /* Populate a list of kitchens. */
     public static void populateKitchenList(final ArrayList<Kitchen> mKitchenList, final ArrayAdapter mArrayAdapter) {
         ParseQuery<Kitchen> query = ParseQuery.getQuery(Kitchen.class);
         query.findInBackground(new FindCallback<Kitchen>() {
@@ -65,6 +69,7 @@ public class ParseOperations {
 
     }
 
+    /* Populate a given kitchen list by the campus they correspond with. */
     public static void populateKitchenByCampusList(final ArrayList<Kitchen> mKitchenList, final ArrayAdapter mArrayAdapter, String campusName){
         ParseQuery<Kitchen> query = ParseQuery.getQuery(Kitchen.class);
         query.whereEqualTo("campus", campusName);
@@ -83,6 +88,7 @@ public class ParseOperations {
     }
 
 
+    /* Populate a given supply list with supplies in the given kitchen and campus. */
     public static void populateSupplyList (String kitchenName, String campusName, final ArrayList<KitchenSupply> mEquipmentList, final ArrayList<KitchenSupply> mIngredientList,
                                     final ArrayAdapter mArrayAdapterEquipment, final ArrayAdapter mArrayAdapterIngredients) {
         // Get the equipment
@@ -118,6 +124,7 @@ public class ParseOperations {
         });
     }
 
+    /* Delete a supply using its ID. */
     public static void deleteSupply(String supplyID, String supplyType) {
         switch(supplyType) {
 
@@ -153,6 +160,7 @@ public class ParseOperations {
     }
 
 
+    /* Check Parse to confirm the supply has been added to the database. */
     public static void confirmSupply(String supplyID, String supplyType) {
         switch(supplyType) {
 
@@ -161,11 +169,9 @@ public class ParseOperations {
                 queryI.getInBackground(supplyID, new GetCallback<Ingredient>() {
                     public void done(Ingredient supply, ParseException e) {
                         if (e == null) {
-                            // Delete the object.
-                            //supply.deleteInBackground();
+                            // Item has been found.
                         } else {
                             // Something went wrong...
-                            Log.d("score", "Error: " + e.getMessage());
                         }
                     }
                 });
@@ -176,17 +182,16 @@ public class ParseOperations {
                 queryE.getInBackground(supplyID, new GetCallback<Equipment>() {
                     public void done(Equipment supply, ParseException e) {
                         if (e == null) {
-                            // Delete the object.
-                            //supply.deleteInBackground();
+                            // Item has been found.
                         } else {
                             // Something went wrong...
-                            Log.d("score", "Error: " + e.getMessage());
                         }
                     }
                 });
         }
     }
 
+    /* Save a supply in the database. */
     public static void saveInDatabase(KitchenSupply supply) {
         supply.saveInBackground();
     }

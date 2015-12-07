@@ -9,12 +9,6 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     >
 
-
-    <!--<Button-->
-        <!--android:layout_width="@android:"-->
-        <!--android:layout_height="" />-->
-
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

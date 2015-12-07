@@ -42,7 +42,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         super.onPause();
         // Save the kitchen name so we can return to the correct kitchen page.
         saveKitchenNameInIntent();
-        // When this activity is paused,
         startActivity(kitchenIntent);
     }
 
@@ -54,22 +53,22 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         finish();
     }
 
+    /* Create an intent so that we can return to the previous page when we're done. */
     public void saveKitchenNameInIntent() {
-        // Create an intent so that we can return to the previous page when we're done.
         kitchenIntent = new Intent(this, KitchenActivity.class);
-        // Save the relevant details about our Kitchen so they can be used in the new activity.
+        // Save the relevant details about our Kitchen.
         kitchenIntent.putExtra("supplyKitchen", kitchenName);
         kitchenIntent.putExtra("campusName", campusName);
     }
 
+    /* Access the buttons for this page */
     public void createButtons() {
-        // Create the delete button.
         deleteButton = (Button) findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(this);
     }
 
+    /* Access and set up the textviews for this page. */
     public void createTextViews() {
-        // Set up the textviews for the detail page, including name, kitchen, and notes.
         detailTextView = (TextView) findViewById(R.id.detail_textview);
 
         supplyNameTextView = (TextView) findViewById(R.id.supply_name);
@@ -81,17 +80,19 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         supplyNotesTextView = (TextView) findViewById(R.id.supply_notes);
         supplyNotesTextView.setText(supplyNotes);
 
+        // For the status, we need to check it's current status before setting text
         supplyStatusTextView = (TextView) findViewById(R.id.supply_status);
         if (supplyIsInUse) {
             supplyStatusTextView.setText("Currently In Use");
             supplyStatusTextView.setTextColor(Color.parseColor("#F44336"));
-        } else {
+        }
+        else {
             supplyStatusTextView.setText("Not In Use");
         }
     }
 
+    /* Get the details about the supply, so we can display them. */
     public void getSupplyDetails() {
-        // Get the details about the supply, so we can display them.
         supplyName = this.getIntent().getExtras().getString("supplyName");
         supplyID = this.getIntent().getExtras().getString("supplyID");
         kitchenName = this.getIntent().getExtras().getString("supplyKitchen");

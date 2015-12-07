@@ -19,7 +19,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         AdapterView.OnItemClickListener{
 
     String kitchenName, campusName;
-    Button addSupplyButton, refreshButton;
+    Button refreshButton;
     ListView ingredientListView, equipmentListView;
     ArrayAdapter mArrayAdapterIngredients, mArrayAdapterEquipment;
     ArrayList<KitchenSupply> mEquipmentList = new ArrayList<KitchenSupply>();
@@ -75,7 +75,7 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
 
         KitchenSupply supply;
 
-        // Check which ListView was selected, so we can select the correct supply.
+        // Check which list the user selected from.
         if(parent.getId() == R.id.ingredient_listview) {
             supply = mIngredientList.get(position);
         }else if(parent.getId() == R.id.equipment_listview) {
@@ -85,15 +85,15 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
             return;
         }
 
+        // Look at the details of the supply.
         saveSupplyDetails(supply);
         startActivity(detailIntent);
     }
 
+    /* Save the relevant details about our Supply so they can be used in the new activity. */
     public void saveSupplyDetails(KitchenSupply supply) {
-        // Create an Intent to take you over to a new DetailActivity
         detailIntent = new Intent(this, DetailActivity.class);
 
-        // Save the relevant details about our Supply so they can be used in the new activity.
         detailIntent.putExtra("supplyName", supply.getName());
         detailIntent.putExtra("supplyID", supply.getObjectId());
         detailIntent.putExtra("campusName", supply.getCampus());
@@ -103,38 +103,30 @@ public class KitchenActivity extends Activity implements View.OnClickListener,
         detailIntent.putExtra("supplyStatus", supply.isInUse());
     }
 
+    /* Go to a new activity to create a kitchen supply. */
     public void addKitchenSupply(View v) {
-        // Create the intent to add a new supply, and go to that activity.
         Intent addSupplyIntent = new Intent(this, AddSupplyActivity.class);
         addSupplyIntent.putExtra("kitchenName", kitchenName);
         addSupplyIntent.putExtra("campusName", campusName);
         startActivity(addSupplyIntent);
     }
 
+    /* Refresh the supply list by pulling current supplies from Parse. */
+    public void updateSupplyList() {
+        ParseOperations.populateSupplyList(kitchenName, campusName, mEquipmentList, mIngredientList,
+                mArrayAdapterEquipment, mArrayAdapterIngredients);
+    }
+
     public void refreshList(View v) {
         updateSupplyList();
     }
 
-    public void updateSupplyList() {
-        ParseOperations.populateSupplyList(kitchenName, campusName, mEquipmentList, mIngredientList, mArrayAdapterEquipment, mArrayAdapterIngredients);
-    }
-
+    /* Access the buttons for this page. */
     public void createButtons() {
-        // Define the buttons defined in the xml file.
         refreshButton = (Button) findViewById(R.id.refresh_button);
-
-        View addButton = findViewById(R.id.add_button);
-//        addButton.setOutlineProvider(new ViewOutlineProvider() {
-//            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//            @Override
-//            public void getOutline(View view, Outline outline) {
-//                int diameter = getResources().getDimensionPixelSize(R.dimen.diameter);
-//                outline.setOval(0, 0, diameter, diameter);
-//            }
-//        });
-//        addButton.setClipToOutline(true);
     }
 
+    /* Access the list views and adapters and configure their settings. */
     public void createListViewsAndAdapters() {
         // Access the ListView
         ingredientListView = (ListView) findViewById(R.id.ingredient_listview);

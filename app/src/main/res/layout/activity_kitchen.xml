@@ -4,15 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <!--<TextView
-        android:id="@+id/main_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Welcome to the ASPC Kitchen Application!"/>-->
+    tools:context=".KitchenActivity">
+    
     <LinearLayout
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
@@ -20,14 +13,6 @@
         android:layout_height="wrap_content"
         android:weightSum="1"
         android:gravity="center_horizontal">
-        <!-- Displays keyboard when touched -->
-        <!--<EditText android:id="@+id/main_edittext"
-            android:textSize="30sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="@string/enter_item"
-            android:layout_weight="0.7" />-->
 
     </LinearLayout>
 
@@ -83,7 +68,6 @@
         android:layout_gravity="bottom"
         android:gravity="bottom"
         >
-
 
         <Button
             android:id="@+id/refresh_button"

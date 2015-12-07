@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +43,8 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
 
         // Displays the kitchen of the supply.
         Button supplyStatusButton = (Button) convertView.findViewById(R.id.supply_status_button);
+
+        // Displays whether the button is in use or not.
         final Boolean supplyIsInUse = supply.isInUse();
         if (supplyIsInUse) {
             supplyStatusButton.setTag("True");
@@ -67,6 +67,7 @@ public class SupplyListAdapter extends ArrayAdapter<KitchenSupply> {
     }
 
     public void onItemClick(View view, int position) {
+        // Activate the "in use" button.
         KitchenSupply supply = data.get(position);
         Button supplyStatusButton = (Button) view.findViewById(R.id.supply_status_button);
         Boolean isInUse = supply.isInUse();
