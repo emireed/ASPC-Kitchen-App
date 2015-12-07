@@ -40,9 +40,10 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         createButtons();
         createEditTexts();
         createSpinners();
-        setSpinnersToCurrent();
+        setCampusSpinnerToCurrent();
+        setKitchenSpinnerToCurrent();
 
-        // Initialize the supply type and campus to be empty so we can check for user input.
+        // Initialize the supply type, campus, and kitchen to null so we can check for user input.
         type = "";
         supplyCampus = "";
         supplyKitchen = "";
@@ -64,7 +65,7 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         // Is the button now checked?
         boolean checked = ((RadioButton) v).isChecked();
 
-        // Check which radio button was clicked
+        // Check which radio button was clicked and set visibility of amount edit text
         switch(v.getId()) {
             case R.id.select_equipment:
                 if (checked)
@@ -90,8 +91,6 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         goodToSave = true;
 
         saveSupplyName();
-        saveSupplyKitchen();
-        saveSupplyCampus();
         saveSupplyNotes();
         saveSupplyType();
         if (type.matches(INGREDIENT)) {
@@ -106,21 +105,6 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         supplyName = nameEditText.getText().toString();
         if (supplyName.matches("")){
             Toast.makeText(this, "You must give this supply a name", Toast.LENGTH_SHORT).show();
-            goodToSave = false;
-        }
-    }
-
-    public void saveSupplyKitchen() {
-        //supplyKitchen = kitchenEditText.getText().toString();
-        if (supplyKitchen.matches("")){
-            Toast.makeText(this, "You must give this supply a kitchen", Toast.LENGTH_SHORT).show();
-            goodToSave = false;
-        }
-    }
-
-    public void saveSupplyCampus() {
-        if (supplyCampus.matches("")){
-            Toast.makeText(this, "You must give this supply a campus", Toast.LENGTH_SHORT).show();
             goodToSave = false;
         }
     }
@@ -153,18 +137,15 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         }
     }
 
+    /* Access the buttons for the page. */
     public void createButtons() {
-        // Create the supply-create button.
         createButton = (Button) findViewById(R.id.create_button);
-        // Create the cancel button.
         cancelButton = (Button) findViewById(R.id.cancel_button);
     }
 
+    /* Access the edit texts and set their settings for the page. */
     public void createEditTexts() {
-        // Create the name text box.
         nameEditText = (EditText) findViewById(R.id.edit_supply_name);
-
-        // Create the notes text box.
         notesEditText = (EditText) findViewById(R.id.edit_notes);
 
         // Create the amount text box. By default, it should be invisible.
@@ -172,50 +153,51 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
         amountEditText.setVisibility(View.INVISIBLE);
     }
 
+    /* Access the spinners and adapters and configure their options. */
     public void createSpinners() {
         campusSpinner = (Spinner) findViewById(R.id.campus_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        kitchenSpinner = (Spinner) findViewById(R.id.kitchen_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout.
         campusAdapter = ArrayAdapter.createFromResource(this,
                 R.array.campus_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        campusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        campusSpinner.setAdapter(campusAdapter);
-
-        campusSpinner.setOnItemSelectedListener(this);
-
-        kitchenSpinner = (Spinner) findViewById(R.id.kitchen_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         kitchenAdapter = ArrayAdapter.createFromResource(this,
                 R.array.pomona_kitchen_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
+
+        // Specify the layout to use when the list of choices appears.
+        campusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         kitchenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
+
+        // Apply the adapter to the spinner.
+        campusSpinner.setAdapter(campusAdapter);
         kitchenSpinner.setAdapter(kitchenAdapter);
 
+        // Set the listener so we can respond to user input.
+        campusSpinner.setOnItemSelectedListener(this);
         kitchenSpinner.setOnItemSelectedListener(this);
     }
-    
-    public void setSpinnersToCurrent() {
-        // Set the campus spinner.
+
+    /* Set the campus spinner to the campus we were previously looking at. */
+    public void setCampusSpinnerToCurrent() {
         int index = 0;
 
+        // Find the index that the current campus is at.
         for (int i=0;i<campusSpinner.getCount();i++){
             if (campusSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(currentCampus)){
                 index = i;
                 break;
             }
         }
-        
-        campusSpinner.setSelection(index);
-        
 
+        campusSpinner.setSelection(index);
     }
 
+    /* Set the kitchen spinner to the kitchen we were previously looking at. */
     public void setKitchenSpinnerToCurrent() {
         // Set the kitchen spinner.
         int index2 = 0;
 
+        // Find the index that the current kitchen is at.
         for (int i=0;i<kitchenSpinner.getCount();i++){
             if (kitchenSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(currentKitchen)){
                 index2 = i;
@@ -230,29 +212,35 @@ public class AddSupplyActivity extends Activity implements AdapterView.OnItemSel
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
 
+        // Check whether we selected the campus or kitchen spinner.
         if(parent.getId() == R.id.campus_spinner) {
-
             supplyCampus = parent.getItemAtPosition(pos).toString();
-            if (supplyCampus.equals("Pomona")) {
-                kitchenAdapter = ArrayAdapter.createFromResource(this,
-                        R.array.pomona_kitchen_array, android.R.layout.simple_spinner_item);
-            }
-            else if (supplyCampus.equals("Harvey Mudd")) {
-                kitchenAdapter = ArrayAdapter.createFromResource(this,
-                        R.array.harveymudd_kitchen_array, android.R.layout.simple_spinner_item);
-            }
-            kitchenSpinner.setAdapter(kitchenAdapter);
+            resetKitchenSpinnerOptions();
             if (supplyCampus.equals(currentCampus)) {
                 setKitchenSpinnerToCurrent();
             }
-
-        }else if(parent.getId() == R.id.kitchen_spinner){
-            supplyKitchen = parent.getItemAtPosition(pos).toString();        }
+        }
+        else if(parent.getId() == R.id.kitchen_spinner){
+            supplyKitchen = parent.getItemAtPosition(pos).toString();
+        }
 
     }
 
+    /* Reset the kitchen spinner so it shows the kitchens from the selected campus. */
+    public void resetKitchenSpinnerOptions() {
+        if (supplyCampus.equals("Pomona")) {
+            kitchenAdapter = ArrayAdapter.createFromResource(this,
+                    R.array.pomona_kitchen_array, android.R.layout.simple_spinner_item);
+        }
+        else if (supplyCampus.equals("Harvey Mudd")) {
+            kitchenAdapter = ArrayAdapter.createFromResource(this,
+                    R.array.harveymudd_kitchen_array, android.R.layout.simple_spinner_item);
+        }
+        kitchenSpinner.setAdapter(kitchenAdapter);
+    }
+
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+        // Another interface callback. Not used here.
     }
 
 }

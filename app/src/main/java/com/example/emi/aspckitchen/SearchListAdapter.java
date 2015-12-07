@@ -46,6 +46,8 @@ public class SearchListAdapter extends ArrayAdapter<KitchenSupply> {
 
         // Displays the kitchen of the supply.
         Button supplyStatusButton = (Button) convertView.findViewById(R.id.supply_status_button);
+
+        // Displays whether the supply is in use.
         final Boolean supplyIsInUse = supply.isInUse();
         if (supplyIsInUse) {
             supplyStatusButton.setTag("True");
@@ -68,6 +70,7 @@ public class SearchListAdapter extends ArrayAdapter<KitchenSupply> {
     }
 
     public void onItemClick(View view, int position) {
+        // Controls the "in use" button.
         KitchenSupply supply = data.get(position);
         Button supplyStatusButton = (Button) view.findViewById(R.id.supply_status_button);
         Boolean isInUse = supply.isInUse();

@@ -3,7 +3,6 @@ package com.example.emi.aspckitchen;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,22 +25,19 @@ public class SearchActivity extends Activity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        handleIntent(getIntent());
 
         // Choose the correct XML file to use.
         setContentView(R.layout.activity_search);
         createListViewAndAdapter();
 
         String searchText = this.getIntent().getExtras().getString("searchString");
-        Log.d("search2", searchText);
         doSearch(searchText);
-
-
-
     }
 
+    /* Populate the list of searched items. */
     private void doSearch(String queryStr) {
-        ParseOperations.searchByName(queryStr, mEquipmentList, mIngredientList, mArrayAdapterEquipment, mArrayAdapterIngredients);
+        ParseOperations.searchByName(queryStr, mEquipmentList, mIngredientList,
+                mArrayAdapterEquipment, mArrayAdapterIngredients);
     }
 
     @Override
@@ -62,11 +58,11 @@ public class SearchActivity extends Activity implements
         saveSupplyDetails(supply);
         startActivity(detailIntent);
     }
+
+    /* Save the relevant details for the supply so we can look at its details. */
     public void saveSupplyDetails(KitchenSupply supply) {
         // Create an Intent to take you over to a new DetailActivity
         detailIntent = new Intent(this, DetailActivity.class);
-
-        // Save the relevant details about our Supply so they can be used in the new activity.
         detailIntent.putExtra("supplyName", supply.getName());
         detailIntent.putExtra("supplyID", supply.getObjectId());
         detailIntent.putExtra("supplyKitchen", supply.getKitchen());
@@ -75,6 +71,7 @@ public class SearchActivity extends Activity implements
         detailIntent.putExtra("supplyStatus", supply.isInUse());
     }
 
+    /* Access the list views and adapters and configure them. */
     private void createListViewAndAdapter() {
         // Access the ListView
         ingredientListView = (ListView) findViewById(R.id.ingredient_listview);

@@ -3,7 +3,6 @@ package com.example.emi.aspckitchen;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -21,11 +20,6 @@ public class MainActivity extends Activity implements
     Button refreshButton, searchButton;
     EditText searchEditText;
 
-
-    /*ListView mainListView;
-    ArrayAdapter mArrayAdapter;
-    ArrayList<Kitchen> mKitchenList = new ArrayList<Kitchen>();*/
-
     ListView pomonaListView;
     ArrayAdapter pomonaArrayAdapter;
     ArrayList<Kitchen> pomonaKitchenList = new ArrayList<Kitchen>();
@@ -37,8 +31,6 @@ public class MainActivity extends Activity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // On creation of the app, set up the relevant views, buttons, and lists.
-
         super.onCreate(savedInstanceState);
 
         // Choose the correct XML file to use.
@@ -50,7 +42,6 @@ public class MainActivity extends Activity implements
         searchEditText = (EditText)findViewById(R.id.search_listview);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
 
         // Initial population of KitchenList with current kitchens.
         updateKitchenList();
@@ -78,13 +69,15 @@ public class MainActivity extends Activity implements
         // Get the kitchen
         Kitchen kitchen;
 
-        //Check which campus
+        // Check which campus
         if(parent.getId() == R.id.pomona_listview) {
             kitchen = pomonaKitchenList.get(position);
-        }else if(parent.getId() == R.id.hmc_listview){
+        }
+        else if(parent.getId() == R.id.hmc_listview){
             kitchen = muddKitchenList.get(position);
         }
         else {
+            // Something went wrong...
             return;
         }
 
@@ -103,53 +96,38 @@ public class MainActivity extends Activity implements
 
     }
 
+    /* Access the buttons defined in the xml file. */
     public void accessButtons() {
-        // Access the buttons defined in the xml file.
-        refreshButton = (Button) findViewById(R.id.refresh_button);
         searchButton = (Button) findViewById(R.id.search_button);
     }
 
+    /* Access the list views and adapters, and configure their settings. */
     public void accessListView() {
-        // Set up the ListView and connect it to the ArrayAdapter.
         pomonaListView = (ListView) findViewById(R.id.pomona_listview);
         pomonaArrayAdapter = new KitchenListAdapter(this, pomonaKitchenList);
         pomonaListView.setAdapter(pomonaArrayAdapter);
-
-        // Set this activity to react to list items being pressed
         pomonaListView.setOnItemClickListener(this);
-
 
         muddListView = (ListView) findViewById(R.id.hmc_listview);
         muddArrayAdapter = new KitchenListAdapter(this, muddKitchenList);
         muddListView.setAdapter(muddArrayAdapter);
         muddListView.setOnItemClickListener(this);
-
     }
 
-    public void addKitchen(View v) {
-        // Create the intent to add a new kitchen, and go to that activity.
-        Intent addKitchenIntent = new Intent(this, AddKitchenActivity.class);
-        startActivity(addKitchenIntent);
-    }
-
-    public void refreshList(View v) {
-        updateKitchenList();
-    }
-
+    /* Perform the search operation on the input search string. */
     public void search(View v){
-        // Create an Intent to go to the Kitchen activity
+        // Create an Intent to go to the Search activity
         Intent searchIntent = new Intent(this, SearchActivity.class);
 
         String searchText = searchEditText.getText().toString();
-        Log.d("search", searchText);
 
         // Save the relevant details about our Kitchen so they can be used in the new activity.
         searchIntent.putExtra("searchString", searchText);
         startActivity(searchIntent);
     }
 
+    /* Refresh the lists by pulling from the database */
     public void updateKitchenList() {
-        //use new parse function once per campus
         ParseOperations.populateKitchenByCampusList(pomonaKitchenList, pomonaArrayAdapter, "Pomona");
         ParseOperations.populateKitchenByCampusList(muddKitchenList, muddArrayAdapter, "Harvey Mudd");
     }
