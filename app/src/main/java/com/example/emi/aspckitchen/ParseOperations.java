@@ -191,62 +191,6 @@ public class ParseOperations {
         }
     }
 
-    public static void getIngredient(String name, String kitchen, String campus, final ArrayList<KitchenSupply> mIngredientList) {
-
-        //final ArrayList<Ingredient> mIngredientList = new ArrayList<>();
-//        ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
-//        queryI.getInBackground(supplyID, new GetCallback<Ingredient>() {
-//            public void done(Ingredient supply, ParseException e) {
-//                if (e == null) {
-//                    ingredientList.add(supply);
-//                    // Item has been found.
-//                } else {
-//                    // Something went wrong...
-//                }
-//            }
-//
-//        });
-
-        // Get the ingredients
-        // Get the ingredients
-        ParseQuery<Ingredient> queryI = ParseQuery.getQuery(Ingredient.class);
-        queryI.whereEqualTo("name", name);
-        queryI.whereEqualTo("kitchen", kitchen);
-        queryI.whereEqualTo("campus", campus);
-        queryI.findInBackground(new FindCallback<Ingredient>() {
-
-            @Override
-            public void done(List<Ingredient> supplies, ParseException error) {
-                if(supplies != null){
-                    mIngredientList.clear();
-                    mIngredientList.addAll(supplies);
-                }
-            }
-        });
-
-    }
-//
-//    public static Equipment getEquipment(String supplyID) {
-//
-//        final ArrayList<Equipment> EquipmentList = new ArrayList<>();
-//        ParseQuery<Equipment> queryI = ParseQuery.getQuery(Equipment.class);
-//        queryI.getInBackground(supplyID, new GetCallback<Equipment>() {
-//            public void done(Equipment supply, ParseException e) {
-//                if (e == null) {
-//                    EquipmentList.add(supply);
-//                    // Item has been found.
-//                } else {
-//                    // Something went wrong...
-//                }
-//            }
-//
-//        });
-//        return EquipmentList.get(0);
-//    }
-
-
-
-
     /* Save a supply in the database. */
     public static void saveInDatabase(KitchenSupply supply) {
         supply.saveInBackground();
